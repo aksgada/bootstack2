@@ -30,14 +30,7 @@ SECRET_KEY = os.environ.get(
 DEBUG = os.environ.get('DEBUG', 'True') == 'True' if 'RENDER' not in os.environ else False
 
 # Render sets RENDER_EXTERNAL_HOSTNAME automatically
-RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
-if RENDER_EXTERNAL_HOSTNAME:
-    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
-if os.environ.get('ALLOWED_HOSTS'):
-    ALLOWED_HOSTS.extend(os.environ.get('ALLOWED_HOSTS').split(','))
-elif 'RENDER' in os.environ:
-    ALLOWED_HOSTS.append('*')
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
