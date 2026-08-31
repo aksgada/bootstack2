@@ -1,0 +1,41 @@
+services:
+  # -------------------------------------------------------------
+  # Django Backend Web Service
+  # -------------------------------------------------------------
+  - type: web
+    name: bootstack-backend
+    env: python
+    rootDir: backend
+    plan: free
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn config.wsgi:application"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10.11
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: "False"
+      - key: CORS_ALLOW_ALL_ORIGINS
+        value: "True"
+
+  # -------------------------------------------------------------
+  # React Frontend Static Site
+  # -------------------------------------------------------------
+  - type: web
+    name: bootstack-frontend
+    env: static
+    rootDir: bootstack-web
+    plan: free
+    buildCommand: "npm install && npm run build"
+    staticPublishPath: "./dist"
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: bootstack-backend
+          property: host
