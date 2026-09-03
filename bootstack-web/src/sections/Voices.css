@@ -1,84 +1,357 @@
+/* ==========================================================================
+   Voices — client testimonial carousel
+   Design tokens are namespaced (--voices-*) so they can be aliased to your
+   existing global palette. Swap the hex fallbacks for your brand vars.
+   ========================================================================== */
+
 .voices {
-  color: var(--ink);
-  --fg: var(--ink);
-  --fg-soft: rgba(8, 22, 31, 0.62);
-  --fg-faint: rgba(8, 22, 31, 0.34);
-  --rule: rgba(26, 66, 95, 0.18);
-}
+  --voices-ink: #14171a;
+  --voices-bone: #f0f1ed;
+  --voices-paper: #f7f7f4;
+  --voices-muted: #86877f;
+  --voices-line: rgba(20, 23, 26, 0.1);
 
-.voices__lead {
+  /* three accents the cards cycle through — no single color dominates */
+  --voices-accent-0: #2f5344; /* forest */
+  --voices-accent-1: #33415c; /* ink-indigo */
+  --voices-accent-2: #c79a3d; /* ochre */
+
   position: relative;
-  padding-block: clamp(1.5rem, 4vh, 3rem) clamp(2.5rem, 6vh, 4rem);
-  border-bottom: 1px solid var(--rule);
+  padding-block: clamp(4rem, 8vw, 7rem);
+  color: var(--voices-ink);
 }
 
-.voices__quote-mark {
-  position: absolute;
-  top: -0.15em;
-  left: -0.06em;
-  font-size: clamp(7rem, 20vw, 16rem);
-  line-height: 1;
-  color: var(--yellow);
-  opacity: 0.5;
-  pointer-events: none;
+/* -------------------------------- Header -------------------------------- */
+
+.voices__header {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: clamp(1.5rem, 4vw, 4rem);
+  align-items: end;
+  margin-bottom: clamp(2.5rem, 6vw, 4.5rem);
 }
 
-.voices__lead-text {
-  position: relative;
-  max-width: 22ch;
-  font-size: clamp(1.8rem, 4.6vw, 4rem);
-  line-height: 1.06;
-  letter-spacing: -0.035em;
+.voices__eyebrow {
+  display: inline-block;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  color: var(--voices-accent-0);
+  margin-bottom: 0.9rem;
+}
+
+.voices__header h2 {
+  line-height: 1.05;
   font-weight: 500;
-  text-wrap: balance;
+  letter-spacing: -0.01em;
 }
 
-.voices__meta {
-  display: grid;
-  gap: 0.15rem;
-  margin-top: var(--s-3);
+.voices__highlight {
+  display: block;
+  font-style: italic;
+  color: var(--voices-muted);
+  font-weight: 400;
 }
 
-.voices__name {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.05rem;
-  letter-spacing: -0.02em;
+.voices__intro {
+  font-size: 1.02rem;
+  line-height: 1.6;
+  color: var(--voices-muted);
+  max-width: 34ch;
+  padding-bottom: 0.35rem;
 }
 
-.voices__role { color: var(--blue); }
-.voices__industry { color: var(--fg-faint); }
+/* -------------------------------- Slider -------------------------------- */
 
-.voices__pair {
-  display: grid;
-  gap: clamp(2rem, 5vw, 4rem);
-  padding-top: clamp(2rem, 5vh, 3.5rem);
-}
-
-.voices__item {
+.voices__slider {
   position: relative;
-  padding-left: 1.5rem;
-  border-left: 2px solid var(--yellow);
 }
 
-.voices__text {
-  font-size: clamp(1.05rem, 1.6vw, 1.35rem);
-  line-height: 1.45;
-  color: rgba(8, 22, 31, 0.86);
-  max-width: 42ch;
+.voices__viewport {
+  overflow: hidden;
+  border-radius: 22px;
 }
 
-@media (min-width: 900px) {
-  .voices__lead-text { max-width: 20ch; }
+.voices__track {
+  display: flex;
+  will-change: transform;
+}
 
-  .voices__lead .voices__meta {
-    position: absolute;
-    right: 0;
-    bottom: clamp(2.5rem, 6vh, 4rem);
-    text-align: right;
-    justify-items: end;
-    margin-top: 0;
+/* -------------------------------- Card ----------------------------------- */
+
+.voices__card {
+  position: relative;
+  flex: 0 0 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: clamp(320px, 34vw, 420px);
+  padding: clamp(2rem, 4vw, 3.5rem);
+  background: var(--voices-paper);
+  border: 1px solid var(--voices-line);
+  border-radius: 22px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.voices__card--accent-0 { --card-accent: var(--voices-accent-0); }
+.voices__card--accent-1 { --card-accent: var(--voices-accent-1); }
+.voices__card--accent-2 { --card-accent: var(--voices-accent-2); }
+
+.voices__card::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: var(--card-accent);
+  transform: scaleY(0.3);
+  transform-origin: top;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.voices__card.is-active::before {
+  transform: scaleY(1);
+}
+
+.voices__watermark {
+  position: absolute;
+  top: -0.3em;
+  right: 0.4em;
+  font-size: clamp(8rem, 14vw, 13rem);
+  font-family: Georgia, 'Times New Roman', serif;
+  color: var(--card-accent);
+  opacity: 0.08;
+  line-height: 1;
+  z-index: -1;
+  user-select: none;
+}
+
+.voices__card-top {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.75rem;
+}
+
+.voices__card-number {
+  font-size: 0.75rem;
+  color: var(--card-accent);
+  letter-spacing: 0.05em;
+}
+
+.voices__card-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  color: var(--voices-muted);
+  padding-left: 0.75rem;
+  border-left: 1px solid var(--voices-line);
+}
+
+.voices__quote {
+  margin: 0;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(1.4rem, 2.4vw, 2rem);
+  font-weight: 400;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  max-width: 62ch;
+}
+
+.voices__author {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--voices-line);
+}
+
+.voices__avatar {
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--voices-paper);
+  background: var(--card-accent);
+}
+
+.voices__author-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.voices__author-info strong {
+  font-size: 0.98rem;
+  font-weight: 600;
+}
+
+.voices__author-info span {
+  font-size: 0.72rem;
+  color: var(--voices-muted);
+  letter-spacing: 0.02em;
+}
+
+.voices__author-info small {
+  font-size: 0.65rem;
+  color: var(--card-accent);
+  letter-spacing: 0.1em;
+}
+
+.voices__arrow {
+  font-size: 1.1rem;
+  color: var(--voices-muted);
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.voices__card:hover .voices__arrow {
+  color: var(--card-accent);
+  transform: translate(3px, -3px);
+}
+
+/* ------------------------------- Controls -------------------------------- */
+
+.voices__controls {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.75rem, 2vw, 1.5rem);
+  margin-top: 2rem;
+}
+
+.voices__button {
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid var(--voices-line);
+  background: transparent;
+  color: var(--voices-ink);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.voices__button:hover {
+  background: var(--voices-ink);
+  color: var(--voices-paper);
+  border-color: var(--voices-ink);
+}
+
+.voices__button:focus-visible {
+  outline: 2px solid var(--voices-accent-1);
+  outline-offset: 2px;
+}
+
+/* Waveform scrubber — the signature element. Each bar is a testimonial;
+   the active bar rises taller, "spoken" bars stay lit. */
+
+.voices__waveform {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: clamp(3px, 0.6vw, 6px);
+  height: 32px;
+  padding: 0 0.25rem;
+}
+
+.voices__waveform-bar {
+  flex: 1;
+  max-width: 14px;
+  height: 30%;
+  min-height: 4px;
+  border: none;
+  border-radius: 3px;
+  background: var(--voices-line);
+  cursor: pointer;
+  padding: 0;
+  transition: height 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.4s ease;
+  /* deterministic pseudo-random height per bar for a natural waveform look */
+  height: calc(24% + (var(--bar-i, 0) * 37) % 46 * 1%);
+}
+
+.voices__waveform-bar.is-played {
+  background: var(--voices-muted);
+  opacity: 0.5;
+}
+
+.voices__waveform-bar.is-active {
+  height: 100%;
+  background: var(--voices-accent-1);
+}
+
+.voices__waveform-bar:hover {
+  background: var(--voices-ink);
+}
+
+.voices__counter {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  color: var(--voices-muted);
+  letter-spacing: 0.05em;
+}
+
+.voices__counter i {
+  display: inline-block;
+  width: 12px;
+  height: 1px;
+  background: var(--voices-line);
+  font-style: normal;
+}
+
+/* -------------------------------- Motion --------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .voices__track,
+  .voices__card::before,
+  .voices__waveform-bar,
+  .voices__arrow,
+  .voices__button {
+    transition: none !important;
+  }
+}
+
+/* -------------------------------- Responsive ------------------------------ */
+
+@media (max-width: 860px) {
+  .voices__header {
+    grid-template-columns: 1fr;
   }
 
-  .voices__pair { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .voices__intro {
+    max-width: none;
+  }
+
+  .voices__card {
+    padding: 1.75rem;
+    min-height: 380px;
+  }
+
+  .voices__waveform-bar {
+    max-width: 8px;
+  }
+}
+
+@media (max-width: 520px) {
+  .voices__controls {
+    flex-wrap: wrap;
+  }
+
+  .voices__waveform {
+    order: 3;
+    width: 100%;
+    height: 26px;
+  }
+
+  .voices__counter {
+    margin-left: auto;
+  }
 }

@@ -112,7 +112,7 @@ export default function Hero({ ready }) {
           </div>
         </div>
 
-        <div className="hero__foot">
+        {/* <div className="hero__foot">
           <a className="hero__cue" href="#idea" aria-label="Scroll to the next section">
             <span className="mono">Scroll</span>
             <span className="hero__cue-line" aria-hidden="true" />
@@ -125,7 +125,7 @@ export default function Hero({ ready }) {
             <li>04 — Build</li>
             <li>05 — Automate</li>
           </ul>
-        </div>
+        </div> */}
       </div>
     </section>
   );

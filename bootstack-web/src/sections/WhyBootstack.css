@@ -1,68 +1,862 @@
+/* =========================================================
+   WHY BOOTSTACK
+   Premium ecosystem-style section
+   TechStack-inspired design
+   ========================================================= */
+
 .why {
+  position: relative;
+  overflow: hidden;
+
   color: var(--ink);
+
+  --why-rule: rgba(35, 87, 132, 0.14);
+  --why-blue: #168cff;
+  --why-cyan: #20d7c4;
+  --why-yellow: #ffd22e;
+  --why-purple: #a866ff;
+  --why-mist: #f5f8fb;
+
+  padding-bottom: 0;
 }
+
+
+/* =========================================================
+   MAIN GRID
+   ========================================================= */
 
 .why__grid {
   display: grid;
-  gap: clamp(2.5rem, 6vw, 5rem);
-  align-items: start;
+
+  gap: clamp(3rem, 6vw, 6rem);
+
+  align-items: center;
 }
 
-.why__aside {
+
+/* =========================================================
+   LEFT CONTENT
+   ========================================================= */
+
+.why__lede {
+  position: relative;
+}
+
+
+.why__eyebrow {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 0.7rem;
+
+  margin-bottom: 1.5rem;
+
+  color: var(--why-blue);
+
+  font-size: 0.72rem;
+
+  letter-spacing: 0.12em;
+
+  font-weight: 600;
+}
+
+
+.why__eyebrow::before {
+  content: '';
+
+  width: 28px;
+  height: 2px;
+
+  background: var(--why-yellow);
+
+  border-radius: 5px;
+}
+
+
+.why__lede h2 {
+  max-width: 14ch;
+
+  margin-bottom: var(--s-3);
+
+  letter-spacing: -0.045em;
+
+  line-height: 0.98;
+}
+
+
+.why__highlight {
+  display: block;
+
+  color: var(--why-blue);
+}
+
+
+.why__lede .body {
+  max-width: 50ch;
+
+  color: var(--fg-soft);
+
+  line-height: 1.65;
+}
+
+
+.why__small-copy {
+  max-width: 45ch;
+
+  margin-top: 1.25rem;
+
+  color: var(--fg-faint);
+
+  font-size: 0.92rem;
+
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   STATS
+   ========================================================= */
+
+.why__stats {
+  display: flex;
+
+  gap: 2rem;
+
+  margin-top: 2rem;
+
+  padding-top: 1.5rem;
+
+  border-top: 1px solid var(--why-rule);
+}
+
+
+.why__stat {
   display: grid;
-  gap: var(--s-2);
+
+  gap: 0.25rem;
 }
 
-.why__aside h2 { letter-spacing: -0.04em; }
-.why__aside .body { max-width: 34ch; }
 
-.why__list {
+.why__stat strong {
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+
+  line-height: 1;
+
+  letter-spacing: -0.04em;
+
+  font-weight: 500;
+}
+
+
+.why__stat span {
+  color: var(--fg-faint);
+
+  font-size: 0.62rem;
+
+  letter-spacing: 0.12em;
+}
+
+
+/* =========================================================
+   WHY BOARD
+   ========================================================= */
+
+.why__board {
+  position: relative;
+
   display: grid;
-  border-top: 1px solid var(--rule);
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 1rem;
 }
+
+
+/* =========================================================
+   MODULE CARD
+   ========================================================= */
+
+.why__module {
+  position: relative;
+
+  min-height: 260px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  padding: clamp(1.15rem, 2vw, 1.5rem);
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.98),
+      rgba(245, 248, 251, 0.94)
+    );
+
+  border: 1px solid var(--why-rule);
+
+  border-radius: 20px;
+
+  box-shadow:
+    0 8px 30px rgba(21, 55, 82, 0.045);
+
+  transition:
+    transform 0.45s var(--ease-out),
+    box-shadow 0.45s var(--ease-out),
+    border-color 0.45s var(--ease-out);
+}
+
+
+/* =========================================================
+   SUBTLE GRID BACKGROUND
+   ========================================================= */
+
+.why__module::before {
+  content: '';
+
+  position: absolute;
+
+  inset: 0;
+
+  opacity: 0.35;
+
+  background-image:
+    linear-gradient(
+      rgba(22, 140, 255, 0.035) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(22, 140, 255, 0.035) 1px,
+      transparent 1px
+    );
+
+  background-size: 24px 24px;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   GLOW
+   ========================================================= */
+
+.why__module::after {
+  content: '';
+
+  position: absolute;
+
+  width: 130px;
+  height: 130px;
+
+  right: -60px;
+  bottom: -60px;
+
+  border-radius: 50%;
+
+  background: var(--why-blue);
+
+  opacity: 0.06;
+
+  filter: blur(20px);
+
+  transition:
+    transform 0.6s var(--ease-out),
+    opacity 0.6s var(--ease-out);
+}
+
+
+/* =========================================================
+   HOVER
+   ========================================================= */
+
+.why__module:hover {
+  transform: translateY(-7px);
+
+  border-color: rgba(22, 140, 255, 0.3);
+
+  box-shadow:
+    0 20px 50px rgba(21, 55, 82, 0.1);
+}
+
+
+.why__module:hover::after {
+  opacity: 0.13;
+
+  transform: scale(1.6);
+}
+
+
+/* =========================================================
+   ACCENT LINE
+   ========================================================= */
+
+.why__module-accent {
+  position: absolute;
+
+  top: 0;
+  left: 1.5rem;
+
+  width: 45px;
+  height: 3px;
+
+  background: var(--why-blue);
+
+  border-radius: 0 0 10px 10px;
+
+  transition:
+    width 0.45s var(--ease-out);
+}
+
+
+/* Individual colors */
+
+.why__module:nth-child(1)
+  .why__module-accent {
+  background: var(--why-blue);
+}
+
+
+.why__module:nth-child(2)
+  .why__module-accent {
+  background: var(--why-purple);
+}
+
+
+.why__module:nth-child(3)
+  .why__module-accent {
+  background: var(--why-cyan);
+}
+
+
+.why__module:nth-child(4)
+  .why__module-accent {
+  background: var(--why-yellow);
+}
+
+
+.why__module:hover
+  .why__module-accent {
+  width: 80px;
+}
+
+
+/* =========================================================
+   MODULE HEADER
+   ========================================================= */
+
+.why__module-head {
+  position: relative;
+
+  z-index: 1;
+
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 0.9rem;
+
+  margin-bottom: 1.25rem;
+}
+
+
+/* =========================================================
+   NUMBER
+   ========================================================= */
+
+.why__module-number {
+  display: grid;
+
+  place-items: center;
+
+  width: 36px;
+  height: 36px;
+
+  flex: none;
+
+  border: 1px solid var(--why-rule);
+
+  border-radius: 10px;
+
+  background: rgba(255, 255, 255, 0.75);
+
+  color: var(--why-blue);
+
+  font-size: 0.62rem;
+
+  transition:
+    transform 0.4s var(--ease-out),
+    background-color 0.4s var(--ease-out);
+}
+
+
+.why__module:hover
+  .why__module-number {
+  transform: rotate(8deg) scale(1.04);
+
+  background: rgba(22, 140, 255, 0.06);
+}
+
+
+/* =========================================================
+   MODULE INFO
+   ========================================================= */
+
+.why__module-info {
+  min-width: 0;
+
+  display: grid;
+
+  gap: 0.25rem;
+
+  flex: 1;
+}
+
+
+.why__module-title-row {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 0.5rem;
+}
+
+
+.why__module-name {
+  color: var(--ink);
+
+  font-size: 0.72rem;
+
+  font-weight: 600;
+
+  letter-spacing: 0.12em;
+}
+
+
+.why__module-icon {
+  display: grid;
+
+  place-items: center;
+
+  width: 28px;
+  height: 28px;
+
+  border-radius: 50%;
+
+  background: rgba(22, 140, 255, 0.07);
+
+  color: var(--why-blue);
+
+  font-size: 0.95rem;
+
+  transition:
+    transform 0.4s var(--ease-out),
+    background-color 0.4s var(--ease-out);
+}
+
+
+.why__module:hover
+  .why__module-icon {
+  transform:
+    rotate(12deg)
+    scale(1.08);
+
+  background: rgba(22, 140, 255, 0.12);
+}
+
+
+.why__module-note {
+  color: var(--fg-faint);
+
+  font-size: 0.7rem;
+
+  line-height: 1.4;
+}
+
+
+/* =========================================================
+   REASON CONTENT
+   ========================================================= */
+
+.why__items {
+  position: relative;
+
+  z-index: 1;
+
+  flex: 1;
+
+  display: flex;
+
+  align-items: center;
+}
+
 
 .why__item {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: clamp(1rem, 3vw, 2.5rem);
-  padding-block: clamp(1.75rem, 4vh, 3rem);
-  border-bottom: 1px solid var(--rule);
-  transition: padding 0.5s var(--ease-out);
+  display: flex;
+
+  align-items: flex-start;
+
+  width: 100%;
+
+  gap: 0.65rem;
+
+  padding: 0.45rem 0.6rem;
+
+  border: 1px solid transparent;
+
+  border-radius: 9px;
+
+  transition:
+    transform 0.3s var(--ease-out),
+    background-color 0.3s var(--ease-out),
+    border-color 0.3s var(--ease-out);
 }
 
-.why__num {
-  font-size: clamp(1.6rem, 2.4vw, 2.4rem);
-  color: transparent;
-  -webkit-text-stroke: 1px var(--blue);
-  line-height: 1;
+
+.why__item:hover {
+  transform: translateX(5px);
+
+  background: rgba(22, 140, 255, 0.055);
+
+  border-color: rgba(22, 140, 255, 0.1);
 }
+
+
+/* =========================================================
+   PIP
+   ========================================================= */
+
+.why__pip {
+  width: 6px;
+  height: 6px;
+
+  flex: none;
+
+  margin-top: 10px;
+
+  border-radius: 50%;
+
+  background: var(--why-cyan);
+
+  box-shadow:
+    0 0 0 3px rgba(32, 215, 196, 0.08);
+
+  transition:
+    transform 0.3s var(--ease-out),
+    background-color 0.3s var(--ease-out);
+}
+
+
+.why__item:hover .why__pip {
+  transform: scale(1.35);
+
+  background: var(--why-blue);
+}
+
+
+/* =========================================================
+   BODY
+   ========================================================= */
+
+.why__body {
+  flex: 1;
+
+  min-width: 0;
+}
+
 
 .why__title {
-  font-size: clamp(1.7rem, 3.4vw, 3rem);
-  line-height: 1.02;
-  letter-spacing: -0.035em;
-  margin-bottom: 0.65rem;
-  text-wrap: balance;
+  margin: 0;
+
+  color: var(--ink);
+
+  font-size: clamp(1.6rem, 2.4vw, 2.35rem);
+
+  line-height: 1;
+
+  letter-spacing: -0.045em;
 }
+
 
 .why__text {
-  max-width: 46ch;
+  margin: 0.8rem 0 0;
+
+  max-width: 420px;
+
   color: var(--fg-soft);
-  font-size: var(--t-md);
+
+  font-size: 0.78rem;
+
+  line-height: 1.7;
 }
 
-.why__item:hover .why__num { -webkit-text-stroke-color: var(--navy); }
-.why__item:hover .why__title { color: var(--blue); }
+
+/* =========================================================
+   ARROW
+   ========================================================= */
+
+.why__item-arrow {
+  margin-left: auto;
+
+  color: var(--why-blue);
+
+  opacity: 0;
+
+  transform: translateX(-5px);
+
+  transition:
+    opacity 0.3s var(--ease-out),
+    transform 0.3s var(--ease-out);
+}
+
+
+.why__item:hover
+  .why__item-arrow {
+  opacity: 1;
+
+  transform: translateX(0);
+}
+
+
+/* =========================================================
+   MODULE FOOTER
+   ========================================================= */
+
+.why__module-footer {
+  position: relative;
+
+  z-index: 1;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin-top: auto;
+
+  padding-top: 1rem;
+
+  border-top: 1px dashed var(--why-rule);
+
+  color: var(--fg-faint);
+
+  font-size: 0.55rem;
+
+  letter-spacing: 0.08em;
+}
+
+
+.why__status {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 0.35rem;
+}
+
+
+.why__status i {
+  width: 5px;
+  height: 5px;
+
+  border-radius: 50%;
+
+  background: #35c76f;
+
+  box-shadow:
+    0 0 0 3px rgba(53, 199, 111, 0.1);
+
+  animation:
+    why-pulse 2s ease-in-out infinite;
+}
+
+
+@keyframes why-pulse {
+
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+}
+
+
+/* =========================================================
+   MARQUEE
+   ========================================================= */
+
+.why__seam {
+  margin-top: clamp(3.5rem, 8vh, 6rem);
+
+  padding-block: clamp(1rem, 3vh, 1.6rem);
+
+  border-top: 1px solid var(--why-rule);
+
+  border-bottom: 1px solid var(--why-rule);
+
+  color: var(--fg-faint);
+}
+
+
+/* =========================================================
+   DESKTOP
+   ========================================================= */
 
 @media (min-width: 1024px) {
+
   .why__grid {
-    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    grid-template-columns:
+      minmax(0, 0.85fr)
+      minmax(0, 1.15fr);
   }
 
-  .why__aside {
-    position: sticky;
-    top: 18vh;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1023px) {
+
+  .why__grid {
+    grid-template-columns: 1fr;
   }
 
-  .why__item:nth-child(even) { padding-left: clamp(1rem, 4vw, 4rem); }
+
+  .why__lede h2 {
+    max-width: 18ch;
+  }
+
+
+  .why__board {
+    max-width: 900px;
+
+    width: 100%;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 699px) {
+
+  .why__board {
+    grid-template-columns: 1fr;
+
+    gap: 0.85rem;
+  }
+
+
+  .why__module {
+    min-height: 0;
+
+    padding: 1.1rem;
+
+    border-radius: 16px;
+  }
+
+
+  .why__module-head {
+    margin-bottom: 1rem;
+  }
+
+
+  .why__item {
+    min-height: 34px;
+  }
+
+
+  .why__stats {
+    gap: 1.5rem;
+  }
+
+
+  .why__title {
+    font-size: 1.75rem;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 420px) {
+
+  .why__lede h2 {
+    font-size: clamp(
+      2.2rem,
+      11vw,
+      3rem
+    );
+  }
+
+
+  .why__module-number {
+    width: 32px;
+    height: 32px;
+  }
+
+
+  .why__module-name {
+    font-size: 0.65rem;
+  }
+
+
+  .why__module-note {
+    font-size: 0.64rem;
+  }
+
+
+  .why__title {
+    font-size: 1.55rem;
+  }
+
+
+  .why__text {
+    font-size: 0.75rem;
+  }
+
+
+  .why__item-arrow {
+    display: none;
+  }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .why__module,
+  .why__item,
+  .why__module-icon,
+  .why__module-accent {
+    transition: none;
+  }
+
+
+  .why__status i {
+    animation: none;
+  }
+
 }

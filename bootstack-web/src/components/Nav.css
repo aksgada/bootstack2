@@ -1,227 +1,707 @@
+/* =========================================================
+   NAVBAR
+   ========================================================= */
+
 .nav {
   position: fixed;
   top: 0;
   left: 0;
+
   width: 100%;
+
   z-index: var(--z-nav);
+
   color: var(--ink);
+
+  padding: 14px clamp(12px, 3vw, 40px);
+
   transition:
-    transform 0.8s var(--ease-out),
-    opacity 0.5s linear,
-    color 0.4s linear;
+    transform 0.7s var(--ease-out),
+    opacity 0.4s ease;
+
   will-change: transform;
 }
 
-/* Entrance: hidden only while the loader is still up. Declared with the same
-   specificity as .is-hidden and placed before it, so the retract still wins. */
-.nav[data-state='out'] {
-  transform: translate3d(0, -102%, 0);
+/* ---------------------------------------------------------
+   HIDE NAV
+   --------------------------------------------------------- */
+
+.nav[data-state='out'],
+.nav.is-hidden {
+  transform: translate3d(0, -120%, 0);
   opacity: 0;
 }
 
-.nav.is-hidden { transform: translate3d(0, -102%, 0); }
+/* =========================================================
+   NAV BAR
+   ========================================================= */
 
 .nav__bar {
-  display: flex;
+  position: relative;
+
+  display: grid;
+
+  grid-template-columns: 1fr auto 1fr;
+
   align-items: center;
-  justify-content: space-between;
-  gap: var(--s-3);
-  padding: clamp(1rem, 2vw, 1.6rem) var(--gutter);
-  transition: padding 0.5s var(--ease-out);
+
+  width: 100%;
+  max-width: 1280px;
+
+  min-height: 68px;
+
+  margin: 0 auto;
+
+  padding: 8px 10px 8px 22px;
+
+  border: 1px solid rgba(35, 87, 132, 0.12);
+
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.88);
+
+  box-shadow:
+    0 8px 30px rgba(8, 22, 31, 0.06);
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  transition:
+    min-height 0.45s var(--ease-out),
+    padding 0.45s var(--ease-out),
+    background 0.45s ease,
+    box-shadow 0.45s ease;
 }
 
+/* =========================================================
+   SCROLLED NAV
+   ========================================================= */
+
 .nav.is-stuck .nav__bar {
-  padding-block: 0.85rem;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  background: color-mix(in srgb, var(--white) 72%, transparent);
+  min-height: 58px;
+
+  padding-top: 5px;
+  padding-bottom: 5px;
+
+  background: rgba(255, 255, 255, 0.94);
+
+  box-shadow:
+    0 12px 35px rgba(8, 22, 31, 0.1);
 }
+
+/* =========================================================
+   BRAND
+   ========================================================= */
 
 .nav__brand {
   position: relative;
-  z-index: 2;
+
+  z-index: 5;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-self: start;
+
+  text-decoration: none;
+
+  color: var(--ink);
 }
 
-/* ---- Links: label swaps upward on hover ---- */
+/* If Wordmark has its own dimensions */
+
+.nav__brand img,
+.nav__brand svg {
+  display: block;
+
+  max-width: 145px;
+
+  height: auto;
+}
+
+/* =========================================================
+   NAV LINKS
+   ========================================================= */
 
 .nav__links {
-  display: none;
-  gap: clamp(1.2rem, 2.4vw, 2.6rem);
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: clamp(1.2rem, 2.3vw, 2.4rem);
+
+  margin: 0;
+
+  padding: 0;
+
+  list-style: none;
 }
+
+/* ---------------------------------------------------------
+   LINK
+   --------------------------------------------------------- */
 
 .nav__link {
   position: relative;
+
   display: block;
-  height: 1em;
+
+  height: 1.2em;
+
   overflow: hidden;
-  color: inherit;
-  opacity: 0.72;
-  transition: opacity 0.3s var(--ease-out);
+
+  color: var(--ink);
+
+  opacity: 0.68;
+
+  text-decoration: none;
+
+  font-size: 0.78rem;
+
+  font-weight: 600;
+
+  letter-spacing: 0.13em;
+
+  text-transform: uppercase;
+
+  transition:
+    opacity 0.3s ease,
+    color 0.3s ease;
 }
+
+.nav__link:hover {
+  opacity: 1;
+}
+
+/* ---------------------------------------------------------
+   LINK LABEL ANIMATION
+   --------------------------------------------------------- */
 
 .nav__link span {
   display: block;
-  transition: transform 0.45s var(--ease-out);
+
+  white-space: nowrap;
+
+  transition:
+    transform 0.45s var(--ease-out);
 }
 
 .nav__link span + span {
   position: absolute;
+
   inset: 0;
-  transform: translateY(100%);
+
   color: var(--blue);
+
+  transform: translateY(110%);
 }
 
-.nav__link:hover { opacity: 1; }
+.nav__link:hover span:first-child {
+  transform: translateY(-110%);
+}
 
-/* The two spans must move to *different* places: the original leaves upward and
-   the duplicate arrives at rest. Targeting `span` alone sent both of them up,
-   which read as the label simply vanishing. */
-.nav__link:hover span:first-child { transform: translateY(-100%); }
-.nav__link:hover span + span { transform: translateY(0); }
+.nav__link:hover span + span {
+  transform: translateY(0);
+}
+
+/* =========================================================
+   RIGHT ACTIONS
+   ========================================================= */
 
 .nav__actions {
   display: flex;
+
   align-items: center;
-  gap: var(--s-2);
+
+  justify-content: flex-end;
+
+  gap: 10px;
+
+  justify-self: end;
 }
 
+/* =========================================================
+   CTA BUTTON
+   ========================================================= */
+
 .nav__cta {
-  display: none;
-  padding: 0.7em 1.35em;
-  border: 1px solid currentColor;
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-height: 44px;
+
+  padding: 0.7rem 1.35rem;
+
+  border: 1px solid var(--blue);
+
   border-radius: 999px;
-  transition: background-color 0.35s var(--ease-out), color 0.35s var(--ease-out);
+
+  background: var(--blue);
+
+  color: white;
+
+  text-decoration: none;
+
+  font-size: 0.72rem;
+
+  font-weight: 700;
+
+  letter-spacing: 0.1em;
+
+  text-transform: uppercase;
+
+  white-space: nowrap;
+
+  box-shadow:
+    0 8px 18px rgba(35, 87, 132, 0.16);
+
+  transition:
+    transform 0.35s var(--ease-out),
+    background 0.35s ease,
+    border-color 0.35s ease,
+    color 0.35s ease,
+    box-shadow 0.35s ease;
 }
 
 .nav__cta:hover {
+  transform: translateY(-2px);
+
   background: var(--yellow);
+
   border-color: var(--yellow);
+
   color: var(--ink);
+
+  box-shadow:
+    0 10px 24px rgba(247, 170, 0, 0.22);
 }
 
-/* ---- Toggle ---- */
+/* =========================================================
+   MENU TOGGLE
+   ========================================================= */
 
 .nav__toggle {
   position: relative;
-  z-index: 2;
-  display: grid;
-  align-content: center;
-  gap: 6px;
+
+  z-index: 10;
+
+  display: none;
+
+  place-items: center;
+
   width: 44px;
   height: 44px;
-  padding: 0 8px;
-  justify-items: end;
+
+  padding: 0;
+
+  border: 1px solid rgba(35, 87, 132, 0.15);
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.7);
+
+  cursor: pointer;
+
+  transition:
+    background 0.3s ease,
+    transform 0.3s ease;
 }
+
+.nav__toggle:hover {
+  background: var(--yellow);
+
+  transform: rotate(3deg);
+}
+
+/* ---------------------------------------------------------
+   HAMBURGER
+   --------------------------------------------------------- */
 
 .nav__toggle i {
+  position: absolute;
+
   display: block;
-  width: 26px;
+
+  width: 20px;
   height: 1.5px;
+
   background: currentColor;
-  transition: transform 0.45s var(--ease-out), width 0.45s var(--ease-out);
+
+  transition:
+    transform 0.4s var(--ease-out),
+    width 0.4s var(--ease-out);
 }
 
-.nav__toggle i:last-child { width: 18px; }
-.nav__toggle:hover i:last-child { width: 26px; }
+.nav__toggle i:first-child {
+  transform: translateY(-4px);
+}
 
-.nav__toggle.is-open i:first-child { transform: translateY(3.75px) rotate(45deg); }
-.nav__toggle.is-open i:last-child { width: 26px; transform: translateY(-3.75px) rotate(-45deg); }
+.nav__toggle i:last-child {
+  transform: translateY(4px);
 
-/* ---- Progress hairline ---- */
+  width: 14px;
+}
+
+/* Open state */
+
+.nav__toggle.is-open i:first-child {
+  width: 20px;
+
+  transform:
+    translateY(0)
+    rotate(45deg);
+}
+
+.nav__toggle.is-open i:last-child {
+  width: 20px;
+
+  transform:
+    translateY(0)
+    rotate(-45deg);
+}
+
+/* =========================================================
+   PROGRESS LINE
+   ========================================================= */
 
 .nav__progress {
-  height: 1.5px;
-  background: color-mix(in srgb, currentColor 16%, transparent);
+  position: absolute;
+
+  left: 5%;
+
+  right: 5%;
+
+  bottom: -5px;
+
+  height: 2px;
+
+  overflow: hidden;
+
+  border-radius: 999px;
+
+  background: rgba(35, 87, 132, 0.08);
+
+  opacity: 0;
+
+  transition: opacity 0.3s ease;
+}
+
+.nav.is-stuck .nav__progress {
+  opacity: 1;
 }
 
 .nav__progress span {
   display: block;
+
+  width: 100%;
   height: 100%;
+
   background: var(--blue);
-  transform: scaleX(0);
+
+  transform:
+    scaleX(0);
+
   transform-origin: left center;
 }
 
-/* ---- Full-screen menu ---- */
+/* =========================================================
+   FULL SCREEN MOBILE MENU
+   ========================================================= */
 
 .menu {
   position: fixed;
+
   inset: 0;
+
   z-index: 70;
-  background: var(--mist);
+
+  display: flex;
+
+  background:
+    radial-gradient(
+      circle at 80% 15%,
+      rgba(64, 168, 196, 0.14),
+      transparent 30%
+    ),
+    var(--mist);
+
   color: var(--ink);
+
   clip-path: inset(0 0 100% 0);
-  transition: clip-path 0.75s var(--ease-in-out);
+
+  transition:
+    clip-path 0.75s var(--ease-in-out);
 }
 
-.menu.is-open { clip-path: inset(0 0 0 0); }
+.menu.is-open {
+  clip-path: inset(0 0 0 0);
+}
+
+/* ---------------------------------------------------------
+   MENU INNER
+   --------------------------------------------------------- */
 
 .menu__inner {
   display: flex;
+
   flex-direction: column;
+
   justify-content: flex-end;
-  gap: var(--s-5);
+
+  width: 100%;
   height: 100%;
-  padding-block: clamp(6rem, 14vh, 9rem) clamp(2rem, 6vh, 4rem);
+
+  padding:
+    7rem
+    clamp(1.5rem, 6vw, 4rem)
+    2rem;
 }
+
+/* ---------------------------------------------------------
+   MENU LINKS
+   --------------------------------------------------------- */
 
 .menu__links {
   display: grid;
-  gap: clamp(0.4rem, 1.4vh, 1rem);
+
+  gap: clamp(0.4rem, 1.2vh, 0.9rem);
+
+  margin-bottom: 3rem;
 }
 
 .menu__links a {
   display: flex;
+
   align-items: baseline;
+
   gap: 1rem;
+
+  color: var(--ink);
+
+  text-decoration: none;
+
+  font-size: clamp(2.5rem, 9vw, 5.5rem);
+
+  line-height: 0.95;
+
+  letter-spacing: -0.05em;
+
   opacity: 0;
-  transform: translateY(28px);
+
+  transform: translateY(30px);
+
   transition:
     opacity 0.6s var(--ease-out),
     transform 0.6s var(--ease-out),
-    color 0.3s linear;
-  transition-delay: calc(var(--i) * 60ms + 120ms);
+    color 0.3s ease;
+
+  transition-delay:
+    calc(var(--i) * 60ms + 120ms);
 }
 
 .menu.is-open .menu__links a {
   opacity: 1;
+
   transform: none;
 }
 
-.menu__links a:hover { color: var(--blue); }
+.menu__links a:hover {
+  color: var(--blue);
+}
+
+/* ---------------------------------------------------------
+   MENU INDEX
+   --------------------------------------------------------- */
 
 .menu__index {
   color: var(--blue);
+
   font-size: 0.7rem;
+
+  letter-spacing: 0.08em;
 }
+
+/* ---------------------------------------------------------
+   MENU FOOTER
+   --------------------------------------------------------- */
 
 .menu__foot {
   display: flex;
+
   flex-wrap: wrap;
+
   align-items: center;
+
   justify-content: space-between;
-  gap: var(--s-2);
-  padding-top: var(--s-3);
-  border-top: 1px solid var(--rule);
+
+  gap: 1rem;
+
+  padding-top: 1.5rem;
+
+  border-top: 1px solid rgba(26, 66, 95, 0.15);
 }
 
 .menu__mail {
-  font-size: var(--t-md);
   color: var(--ink);
+
+  font-size: 0.9rem;
+
+  text-decoration: none;
+
   border-bottom: 1px solid var(--blue);
-  padding-bottom: 2px;
+
+  padding-bottom: 3px;
 }
 
 .menu__social {
   display: flex;
-  gap: var(--s-3);
-  color: var(--fg-soft);
+
+  gap: 1.3rem;
+
+  color: rgba(8, 22, 31, 0.55);
 }
 
-.menu__social a:hover { color: var(--blue); }
+.menu__social a {
+  transition: color 0.3s ease;
+}
+
+.menu__social a:hover {
+  color: var(--blue);
+}
+
+/* =========================================================
+   DESKTOP
+   ========================================================= */
 
 @media (min-width: 1024px) {
-  .nav__links { display: flex; }
-  .nav__cta { display: inline-block; }
-  .nav__toggle { display: none; }
+
+  .nav__links {
+    display: flex;
+  }
+
+  .nav__cta {
+    display: inline-flex;
+  }
+
+  .nav__toggle {
+    display: none;
+  }
+
 }
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1023px) {
+
+  .nav {
+    padding:
+      10px
+      clamp(10px, 2vw, 20px);
+  }
+
+  .nav__bar {
+    grid-template-columns: 1fr auto;
+
+    min-height: 62px;
+
+    padding:
+      7px
+      8px
+      7px
+      18px;
+  }
+
+  .nav__links {
+    display: none;
+  }
+
+  .nav__cta {
+    display: none;
+  }
+
+  .nav__toggle {
+    display: grid;
+  }
+
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .nav {
+    padding: 8px 10px;
+  }
+
+  .nav__bar {
+    min-height: 58px;
+
+    border-radius: 18px;
+
+    padding:
+      6px
+      7px
+      6px
+      15px;
+  }
+
+  .nav__brand img,
+  .nav__brand svg {
+    max-width: 125px;
+  }
+
+  .nav__toggle {
+    width: 42px;
+    height: 42px;
+  }
+
+  .menu__inner {
+    padding:
+      6.5rem
+      1.3rem
+      1.5rem;
+  }
+
+  .menu__links a {
+    font-size: clamp(2.4rem, 13vw, 4rem);
+  }
+
+  .menu__foot {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+}
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+  .nav__bar {
+    min-height: 54px;
+  }
+
+  .nav__brand img,
+  .nav__brand svg {
+    max-width: 110px;
+  }
+
+  .nav__toggle {
+    width: 38px;
+    height: 38px;
+  }
+
+}
+

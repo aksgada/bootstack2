@@ -4,135 +4,114 @@
   --fg-soft: rgba(8, 22, 31, 0.6);
   --fg-faint: rgba(8, 22, 31, 0.34);
   --rule: rgba(26, 66, 95, 0.18);
-  overflow: hidden;
 }
 
 .approach__inner {
   display: flex;
   flex-direction: column;
   gap: clamp(2.5rem, 6vh, 4rem);
+
+  padding-top: clamp(1.5rem, 3vh, 2.5rem);
+  padding-bottom: clamp(3rem, 7vh,2rem);
 }
 
 .approach__head {
+  width: 100%;
+  max-width: 850px;
+  margin: 0 auto;
+
   display: grid;
   gap: var(--s-3);
-  align-items: end;
+
+  align-items: center;
+  justify-items: center;
+  text-align: center;
 }
 
-.approach__head h2 { letter-spacing: -0.045em; }
-.approach__head .body { max-width: 44ch; }
-
-/* ---- Rail ---- */
-
-.approach__rail {
-  width: 100%;
-}
+/* ---- Stage grid ---- */
 
 .approach__track {
   display: grid;
-  gap: clamp(1.25rem, 3vw, 2.5rem);
-  padding-inline: var(--gutter);
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.25rem, 3vw, 2rem);
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .approach__stage {
   position: relative;
   display: grid;
   gap: var(--s-2);
-  padding: clamp(1.5rem, 3vw, 2.4rem);
+  padding: clamp(1.5rem, 3vw, 2.2rem);
   background: rgba(255, 255, 255, 0.55);
   border: 1px solid var(--rule);
+  overflow: hidden;
 }
 
+/* static gradient rule, always visible instead of a hover sweep */
 .approach__stage::after {
   content: '';
   position: absolute;
   left: 0;
   bottom: -1px;
-  width: 0;
+  width: 100%;
   height: 3px;
-  background: var(--yellow);
-  transition: width 0.7s var(--ease-out);
+  background: linear-gradient(90deg, var(--blue), var(--yellow));
 }
 
-.approach__stage:hover::after { width: 100%; }
-
 .approach__num {
-  font-size: clamp(3rem, 9vw, 7rem);
+  font-size: clamp(2.6rem, 4vw, 3.6rem);
   line-height: 0.8;
   color: transparent;
-  -webkit-text-stroke: 1.25px rgba(26, 66, 95, 0.42);
+  -webkit-text-stroke: 1.25px var(--yellow);
   letter-spacing: -0.05em;
 }
 
-.approach__stage:hover .approach__num {
-  -webkit-text-stroke-color: var(--yellow);
-}
-
 .approach__title {
-  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-size: clamp(1.3rem, 2vw, 1.75rem);
   text-transform: uppercase;
-  letter-spacing: -0.035em;
-  margin-bottom: 0.35rem;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.3rem;
 }
 
 .approach__line {
+  position: relative;
   font-size: var(--t-md);
   color: var(--blue);
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.5rem;
+  padding-left: 0.9rem;
+}
+
+.approach__line::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.35em;
+  width: 0.5rem;
+  height: 2px;
+  background: var(--yellow);
 }
 
 .approach__text {
   font-size: var(--t-sm);
   line-height: 1.55;
   color: var(--fg-soft);
-  max-width: 40ch;
+  max-width: 38ch;
 }
 
-/* ---- Progress ---- */
-
-.approach__progress {
-  height: 2px;
-  background: var(--rule);
-}
-
-.approach__progress span {
-  display: block;
-  height: 100%;
-  background: var(--yellow);
-  transform: scaleX(0);
-  transform-origin: left center;
-}
-
-@media (min-width: 1024px) {
-  /* The section gets pinned, so it must not exceed the viewport: the band's own
-     padding is dropped and the inner frame carries the spacing instead. */
-  .approach { padding-block: 0; }
-
-  .approach__inner {
-    justify-content: center;
-    min-height: 100svh;
-    padding-block: clamp(5rem, 12vh, 8rem) clamp(2rem, 6vh, 4rem);
+@media (max-width: 960px) {
+  .approach__track {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .approach__head {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 0.7fr);
+    grid-template-columns: 1fr;
   }
-
-  .approach__track {
-    display: flex;
-    width: max-content;
-    align-items: stretch;
-    will-change: transform;
-  }
-
-  .approach__stage {
-    width: clamp(340px, 30vw, 460px);
-    flex: none;
-  }
-
-  .approach__progress { display: block; }
 }
 
-@media (max-width: 1023px) {
-  .approach__progress { display: none; }
+@media (max-width: 620px) {
+  .approach__track {
+    grid-template-columns: 1fr;
+  }
 }

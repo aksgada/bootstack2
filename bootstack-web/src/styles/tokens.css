@@ -32,11 +32,15 @@
      is reserved for fills and the brand blue carries accented words. */
   --accent: var(--blue);
 
-  /* ---- Type families ---- */
-  --font-display: 'Bricolage Grotesque', 'Archivo', 'Helvetica Neue', Arial, sans-serif;
-  --font-body: 'Inter Tight', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
 
+  /* --font-display: 'Bricolage Grotesque', 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  --font-body: 'Inter Tight', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace; */
+:root {
+  --font-display: 'Montserrat', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'Inter', sans-serif;
+}
   /* ---- Fluid type scale (min 360px → max 1600px) ---- */
   --t-mega: clamp(3.4rem, 13.2vw, 13rem);    /* hero / closing statements */
   --t-xxl: clamp(2.6rem, 7.6vw, 7rem);       /* section statements */
@@ -60,7 +64,8 @@
   --gutter: clamp(1.25rem, 4.2vw, 4.5rem);
   --max: 1680px;
   /* Chapters get real air around them — the page should breathe, not compress. */
-  --band-y: clamp(6rem, 15vh, 13rem);
+ --band-y: clamp(2rem, 5vh, 3.5rem);
+  
 
   /* ---- Motion ---- */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);

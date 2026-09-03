@@ -4,7 +4,7 @@ import MagneticButton from '../components/MagneticButton.jsx';
 import { contact } from '../data/site';
 import './FinalCta.css';
 
-const HEADING = ['Ready to build', "what's next?"];
+const HEADING = ['Ready to build'];
 
 export default function FinalCta() {
   const rootRef = useRef(null);
@@ -17,24 +17,77 @@ export default function FinalCta() {
     requirement: '',
   });
 
+  /* -------------------------------------------------------
+     GSAP
+  ------------------------------------------------------- */
+
   useEffect(() => {
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
 
       mm.add('(prefers-reduced-motion: no-preference)', () => {
+        gsap.from('.cta__eyebrow', {
+          opacity: 0,
+          y: 20,
+          duration: 0.8,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: rootRef.current,
+            start: 'top 80%',
+          },
+        });
+
         gsap.from('.cta__line > span', {
-          yPercent: 112,
+          yPercent: 115,
           duration: 1.15,
           ease: 'expo.out',
-          stagger: 0.1,
+          stagger: 0.12,
           scrollTrigger: {
             trigger: '.cta__heading',
             start: 'top 82%',
           },
         });
 
+        gsap.from('.cta__support', {
+          opacity: 0,
+          y: 25,
+          duration: 0.8,
+          delay: 0.25,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: '.cta__body',
+            start: 'top 85%',
+          },
+        });
+
+        gsap.from('.cta__actions > *', {
+          opacity: 0,
+          y: 20,
+          duration: 0.7,
+          stagger: 0.1,
+          delay: 0.35,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: '.cta__actions',
+            start: 'top 88%',
+          },
+        });
+
+        gsap.from('.cta__detail', {
+          opacity: 0,
+          y: 20,
+          duration: 0.6,
+          stagger: 0.1,
+          delay: 0.4,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: '.cta__details',
+            start: 'top 88%',
+          },
+        });
+
         gsap.to('.cta__ghost', {
-          xPercent: -14,
+          xPercent: -12,
           ease: 'none',
           scrollTrigger: {
             trigger: rootRef.current,
@@ -44,10 +97,39 @@ export default function FinalCta() {
           },
         });
       });
+
+      return () => mm.revert();
     }, rootRef);
 
     return () => ctx.revert();
   }, []);
+
+  /* -------------------------------------------------------
+     BODY LOCK + ESC
+  ------------------------------------------------------- */
+
+  useEffect(() => {
+    if (!isFormOpen) return;
+
+    document.body.style.overflow = 'hidden';
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setIsFormOpen(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isFormOpen]);
+
+  /* -------------------------------------------------------
+     FORM
+  ------------------------------------------------------- */
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -58,71 +140,104 @@ export default function FinalCta() {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    const apiUrl = (import.meta.env.VITE_API_URL || 'http://localhost:8000').replace(/\/+$/, '');
+  try {
+    const response = await fetch(
+      'http://127.0.0.1:8000/api/contact/project-enquiry/',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      }
+    );
 
-    fetch(`${apiUrl}/api/contact/project-enquiry/`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
-    })
-      .then(async (res) => {
-        if (!res.ok) {
-          const errData = await res.json().catch(() => ({}));
-          let errMsg = 'Something went wrong. Please try again.';
-          if (errData && typeof errData === 'object') {
-            const messages = [];
-            for (const key in errData) {
-              if (Array.isArray(errData[key])) {
-                messages.push(`${key}: ${errData[key].join(', ')}`);
-              } else if (typeof errData[key] === 'string') {
-                messages.push(`${key}: ${errData[key]}`);
-              }
-            }
-            if (messages.length > 0) {
-              errMsg = messages.join('\n');
-            }
-          }
-          throw new Error(errMsg);
-        }
-        return res.json();
-      })
-      .then((data) => {
-        alert('Thank you! We will get back to you soon.');
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          requirement: '',
-        });
-        setIsFormOpen(false);
-      })
-      .catch((error) => {
-        console.error('Error submitting form:', error);
-        alert(error.message || 'Something went wrong. Please try again.');
-      });
-  };
+    const data = await response.json();
 
+    if (!response.ok) {
+      console.error('API Error:', data);
+      alert('Something went wrong. Please try again.');
+      return;
+    }
+
+    console.log('Enquiry submitted:', data);
+
+    alert(
+      data.email_sent
+        ? 'Thank you! Your enquiry has been sent successfully.'
+        : 'Your enquiry was saved, but email delivery failed.'
+    );
+
+    setFormData({
+      name: '',
+      email: '',
+      phone: '',
+      requirement: '',
+    });
+
+    setIsFormOpen(false);
+
+  } catch (error) {
+    console.error('Network Error:', error);
+    alert(
+      'Unable to connect to the server. Please make sure Django is running.'
+    );
+  }
+};
   return (
     <>
+      {/* =====================================================
+          CTA
+      ===================================================== */}
+
       <section
         ref={rootRef}
         id="contact"
         className="cta band"
         data-bg="yellow"
       >
-        <span className="cta__ghost display" aria-hidden="true">
-          BOOTSTACK BOOTSTACK
+        {/* Decorative background */}
+        <div className="cta__noise" aria-hidden="true" />
+
+        <span
+          className="cta__ghost display"
+          aria-hidden="true"
+        >
+          BOOTSTACK
+        </span>
+
+        <span
+          className="cta__ghost cta__ghost--two display"
+          aria-hidden="true"
+        >
+          BUILD
         </span>
 
         <div className="shell cta__inner">
-          <p className="cta__eyebrow mono" data-reveal>
-            Let&rsquo;s begin
+
+          {/* TOP LABEL */}
+
+          <div className="cta__top">
+            <span className="cta__index mono">
+              12 / CONTACT
+            </span>
+
+            <span className="cta__status">
+              <i />
+              AVAILABLE FOR SELECT PROJECTS
+            </span>
+          </div>
+
+          {/* EYEBROW */}
+
+          <p className="cta__eyebrow mono">
+            LET'S BEGIN
           </p>
+
+          {/* HEADING */}
 
           <h2 className="cta__heading display display--mega">
             {HEADING.map((line, i) => (
@@ -135,67 +250,94 @@ export default function FinalCta() {
             ))}
           </h2>
 
+          {/* BODY */}
+
           <div className="cta__body">
-            <p className="cta__support lead" data-reveal>
-              Tell us what you&rsquo;re building, where you want to go, and
-              what needs to grow. We&rsquo;ll come back with a straight answer
-              about whether we&rsquo;re the right people for it.
+
+            <p className="cta__support lead">
+              Tell us what you're building, where you want to go,
+              and what needs to grow. We'll come back with a
+              straight answer about whether we're the right people
+              for it.
             </p>
 
-            <div
-              className="cta__actions"
-              data-reveal
-              style={{ '--reveal-delay': '80ms' }}
-            >
-              {/* START A PROJECT */}
+            {/* ACTIONS */}
+
+            <div className="cta__actions">
+
               <MagneticButton
                 type="button"
                 variant="solid"
                 onClick={() => setIsFormOpen(true)}
               >
-                Start a Project
+                <span>Start a Project</span>
+                <b>↗</b>
               </MagneticButton>
 
-              {/* TALK TO BOOTSTACK */}
               <MagneticButton
                 href={`tel:${contact.phone.replace(/\s+/g, '')}`}
                 variant="ghost"
               >
-                Talk to Bootstack
+                <span>Talk to Bootstack</span>
+                <b>↗</b>
               </MagneticButton>
+
             </div>
           </div>
 
-          <ul className="cta__details">
-            <li data-reveal>
-              <span className="mono">Email</span>
+          {/* CONTACT DETAILS */}
+
+          <div className="cta__details">
+
+            <div className="cta__detail">
+              <span className="mono">EMAIL</span>
+
               <a href={`mailto:${contact.email}`}>
                 {contact.email}
+                <span>↗</span>
               </a>
-            </li>
+            </div>
 
-            <li
-              data-reveal
-              style={{ '--reveal-delay': '60ms' }}
-            >
-              <span className="mono">Phone</span>
-              <a href={`tel:${contact.phone.replace(/\s+/g, '')}`}>
+            <div className="cta__detail">
+              <span className="mono">PHONE</span>
+
+              <a
+                href={`tel:${contact.phone.replace(/\s+/g, '')}`}
+              >
                 {contact.phone}
+                <span>↗</span>
               </a>
-            </li>
+            </div>
 
-            <li
-              data-reveal
-              style={{ '--reveal-delay': '120ms' }}
-            >
-              <span className="mono">Studio</span>
-              <span>{contact.location}</span>
-            </li>
-          </ul>
+            <div className="cta__detail">
+              <span className="mono">STUDIO</span>
+
+              <strong>
+                {contact.location}
+              </strong>
+            </div>
+
+          </div>
+
+          {/* BOTTOM */}
+
+          <div className="cta__bottom">
+            <span className="mono">
+              DIGITAL SYSTEMS / CREATIVE TECHNOLOGY
+            </span>
+
+            <span className="mono">
+              SCROLL ↓
+            </span>
+          </div>
+
         </div>
       </section>
 
-      {/* PROJECT FORM MODAL */}
+      {/* =====================================================
+          PROJECT MODAL
+      ===================================================== */}
+
       {isFormOpen && (
         <div
           className="project-modal"
@@ -205,6 +347,9 @@ export default function FinalCta() {
             className="project-modal__box"
             onClick={(e) => e.stopPropagation()}
           >
+
+            {/* CLOSE */}
+
             <button
               type="button"
               className="project-modal__close"
@@ -214,46 +359,74 @@ export default function FinalCta() {
               ×
             </button>
 
+            {/* MODAL HEADER */}
+
             <div className="project-modal__header">
-              <span className="mono">START A PROJECT</span>
 
-              <h3>
+              <div className="project-modal__label">
+                <span className="modal-dot" />
+                START A PROJECT
+              </div>
+
+              {/* <h3>
                 Tell us what
-                <br />
-                you&rsquo;re building.
-              </h3>
+                <span> you're building.</span>
+              </h3> */}
 
-              <p>
-                Share a few details about your project and we&rsquo;ll get
-                back to you shortly.
-              </p>
+              {/* <p>
+                Give us a little context and we'll get back
+                to you with the next step.
+              </p> */}
+
             </div>
+
+            {/* FORM */}
 
             <form
               className="project-form"
               onSubmit={handleSubmit}
             >
-              {/* NAME */}
-              <div className="project-form__field">
-                <label htmlFor="project-name">
-                  Name <span>*</span>
-                </label>
 
-                <input
-                  id="project-name"
-                  type="text"
-                  name="name"
-                  placeholder="Your name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                />
+              <div className="project-form__row">
+
+                <div className="project-form__field">
+                  <label htmlFor="project-name">
+                    NAME
+                  </label>
+
+                  <input
+                    id="project-name"
+                    type="text"
+                    name="name"
+                    placeholder="Your name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+
+                <div className="project-form__field">
+                  <label htmlFor="project-phone">
+                    PHONE
+                  </label>
+
+                  <input
+                    id="project-phone"
+                    type="tel"
+                    name="phone"
+                    placeholder="Your phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+
               </div>
 
-              {/* EMAIL */}
               <div className="project-form__field">
+
                 <label htmlFor="project-email">
-                  Email <span>*</span>
+                  EMAIL
                 </label>
 
                 <input
@@ -265,50 +438,37 @@ export default function FinalCta() {
                   onChange={handleChange}
                   required
                 />
+
               </div>
 
-              {/* PHONE */}
               <div className="project-form__field">
-                <label htmlFor="project-phone">
-                  Phone <span>*</span>
-                </label>
 
-                <input
-                  id="project-phone"
-                  type="tel"
-                  name="phone"
-                  placeholder="+91 98765 43210"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-
-              {/* REQUIREMENT */}
-              <div className="project-form__field">
                 <label htmlFor="project-requirement">
-                  Project Requirement <span>*</span>
+                  PROJECT
                 </label>
 
                 <textarea
                   id="project-requirement"
                   name="requirement"
-                  placeholder="Tell us about your project, goals, budget, timeline..."
-                  rows="5"
+                  placeholder="What are you building?"
+                  rows="4"
                   value={formData.requirement}
                   onChange={handleChange}
                   required
                 />
+
               </div>
 
               <button
                 type="submit"
                 className="project-form__submit"
               >
-                Send Project Enquiry
-                <span>↗</span>
+                <span>SEND ENQUIRY</span>
+                <b>↗</b>
               </button>
+
             </form>
+
           </div>
         </div>
       )}
