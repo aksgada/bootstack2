@@ -145,7 +145,8 @@ export default function FinalCta() {
 
   try {
     const response = await fetch(
-      'http://127.0.0.1:8000/api/contact/project-enquiry/',
+      'https://akshadak.pythonanywhere.com/api/contact/project-enquiry/',
+      // http://127.0.0.1:8000/api/contact/project-enquiry/
       {
         method: 'POST',
         headers: {
