@@ -1,6 +1,7 @@
 /* =========================================================
    FINAL CTA
    Premium yellow contact section
+   Fully Responsive
    ========================================================= */
 
 .cta {
@@ -11,10 +12,11 @@
   position: relative;
   overflow: hidden;
 
+  width: 100%;
+  min-height: 100vh;
+
   background: var(--cta-yellow);
   color: var(--cta-ink);
-
-  min-height: 100vh;
 
   padding-block: clamp(70px, 10vw, 130px);
 }
@@ -31,6 +33,8 @@
   left: -4%;
 
   z-index: 0;
+
+  max-width: none;
 
   font-size: clamp(7rem, 19vw, 18rem);
   font-weight: 800;
@@ -67,6 +71,8 @@
   position: absolute;
   inset: 0;
 
+  z-index: 1;
+
   pointer-events: none;
 
   opacity: 0.035;
@@ -90,7 +96,7 @@
 
   z-index: 2;
 
-  max-width: 1180px;
+  width: min(1180px, calc(100% - 40px));
 
   margin-inline: auto;
 }
@@ -116,6 +122,8 @@
 }
 
 .cta__index {
+  flex-shrink: 0;
+
   font-size: 10px;
 
   letter-spacing: 0.15em;
@@ -130,6 +138,8 @@
 
   gap: 9px;
 
+  text-align: right;
+
   font-family: var(--font-mono, monospace);
 
   font-size: 9px;
@@ -142,6 +152,8 @@
 .cta__status i {
   width: 7px;
   height: 7px;
+
+  flex-shrink: 0;
 
   border-radius: 50%;
 
@@ -192,6 +204,8 @@
   width: 32px;
   height: 1px;
 
+  flex-shrink: 0;
+
   background: currentColor;
 }
 
@@ -205,11 +219,12 @@
 
   max-width: 900px;
 
-font-size: clamp(
-  3rem,
-  7vw,
-  4rem
-);
+  font-size: clamp(
+    3rem,
+    7vw,
+    6rem
+  );
+
   line-height: 0.86;
 
   letter-spacing: -0.075em;
@@ -249,7 +264,7 @@ font-size: clamp(
 
   grid-template-columns:
     minmax(260px, 500px)
-    auto;
+    minmax(280px, auto);
 
   align-items: end;
 
@@ -272,7 +287,7 @@ font-size: clamp(
   max-width: 48ch;
 
   font-size: clamp(
-    1rem,
+    0.95rem,
     1.5vw,
     1rem
   );
@@ -290,15 +305,12 @@ font-size: clamp(
 .cta__actions {
   display: flex;
 
+  align-items: center;
+
   flex-wrap: wrap;
 
   gap: 12px;
 }
-
-
-/*
-   Works with your MagneticButton
-*/
 
 .cta__actions .btn {
   min-height: 54px;
@@ -367,11 +379,11 @@ font-size: clamp(
   grid-template-columns:
     repeat(3, minmax(0, 1fr));
 
-  margin: clamp(
+  margin-top: clamp(
     70px,
     10vw,
     120px
-  ) 0 0;
+  );
 
   border-top: 1px solid
     rgba(17, 17, 17, 0.18);
@@ -387,6 +399,7 @@ font-size: clamp(
 
   gap: 14px;
 
+  min-width: 0;
   min-height: 120px;
 
   padding: 25px 28px;
@@ -421,20 +434,26 @@ font-size: clamp(
 
   gap: 15px;
 
+  min-width: 0;
+
   color: #111;
 
   text-decoration: none;
 
   font-size: clamp(
-    0.95rem,
+    0.9rem,
     1.3vw,
     1.1rem
   );
 
   font-weight: 600;
+
+  overflow-wrap: anywhere;
 }
 
 .cta__detail a span {
+  flex-shrink: 0;
+
   font-size: 17px;
 
   opacity: 0.45;
@@ -463,6 +482,8 @@ font-size: clamp(
 
   justify-content: space-between;
 
+  gap: 20px;
+
   padding-top: 22px;
 
   font-size: 8px;
@@ -471,6 +492,8 @@ font-size: clamp(
 
   opacity: 0.4;
 }
+
+
 /* =========================================================
    PROJECT MODAL
    Premium Transparent / Glass UI
@@ -478,23 +501,30 @@ font-size: clamp(
 
 .project-modal {
   position: fixed;
+
   inset: 0;
+
   z-index: 9999;
 
   display: flex;
+
   align-items: center;
+
   justify-content: center;
+
+  width: 100%;
+  height: 100%;
 
   padding: 20px;
 
-  /* Transparent overlay */
   background: rgba(17, 17, 17, 0.18);
 
-  /* Strong glass blur */
   backdrop-filter: blur(14px) saturate(120%);
   -webkit-backdrop-filter: blur(14px) saturate(120%);
 
   animation: modalFadeIn 0.35s ease forwards;
+
+  overflow-y: auto;
 }
 
 
@@ -506,24 +536,26 @@ font-size: clamp(
   position: relative;
 
   width: min(620px, 100%);
-  max-height: 80vh;
+
+  max-height: 90vh;
 
   overflow-y: auto;
 
-  padding: clamp(28px, 5vw, 48px);
+  padding: clamp(
+    28px,
+    5vw,
+    48px
+  );
 
-  /* Transparent glass */
   background: rgba(255, 255, 255, 0.18);
 
   backdrop-filter: blur(28px) saturate(140%);
   -webkit-backdrop-filter: blur(28px) saturate(140%);
 
-  /* Premium border */
   border: 1px solid rgba(255, 255, 255, 0.55);
 
   border-radius: 30px;
 
-  /* Layered shadow */
   box-shadow:
     0 40px 100px rgba(0, 0, 0, 0.25),
     inset 0 1px 0 rgba(255, 255, 255, 0.6);
@@ -535,9 +567,6 @@ font-size: clamp(
     0.5s
     cubic-bezier(0.16, 1, 0.3, 1);
 }
-
-
-/* Subtle glass highlight */
 
 .project-modal__box::before {
   content: '';
@@ -572,6 +601,7 @@ font-size: clamp(
   height: 44px;
 
   display: grid;
+
   place-items: center;
 
   border: 1px solid rgba(17, 17, 17, 0.2);
@@ -649,7 +679,6 @@ font-size: clamp(
   opacity: 0.75;
 }
 
-
 .modal-dot {
   width: 7px;
   height: 7px;
@@ -665,7 +694,6 @@ font-size: clamp(
 
   animation: modalDotPulse 1.8s infinite;
 }
-
 
 @keyframes modalDotPulse {
   0%,
@@ -684,7 +712,7 @@ font-size: clamp(
 
 
 /* =========================================================
-   TITLE
+   MODAL TITLE
    ========================================================= */
 
 .project-modal__header h3 {
@@ -708,13 +736,11 @@ font-size: clamp(
   font-weight: 700;
 }
 
-
 .project-modal__header h3 span {
   color: var(--cta-blue);
 
   display: inline-block;
 }
-
 
 .project-modal__header p {
   max-width: 43ch;
@@ -741,7 +767,6 @@ font-size: clamp(
   gap: 17px;
 }
 
-
 .project-form__row {
   display: grid;
 
@@ -751,15 +776,15 @@ font-size: clamp(
   gap: 14px;
 }
 
-
 .project-form__field {
   display: flex;
 
   flex-direction: column;
 
   gap: 8px;
-}
 
+  min-width: 0;
+}
 
 .project-form__field label {
   font-family:
@@ -782,6 +807,7 @@ font-size: clamp(
 .project-form__field input,
 .project-form__field textarea {
   width: 100%;
+  max-width: 100%;
 
   border: 1px solid rgba(17, 17, 17, 0.16);
 
@@ -789,7 +815,6 @@ font-size: clamp(
 
   outline: none;
 
-  /* Transparent */
   background: rgba(255, 255, 255, 0.16);
 
   color: #111;
@@ -799,6 +824,8 @@ font-size: clamp(
   font-family: inherit;
 
   font-size: 14px;
+
+  box-sizing: border-box;
 
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -813,11 +840,9 @@ font-size: clamp(
     transform 0.3s ease;
 }
 
-
 .project-form__field input {
   height: 45px;
 }
-
 
 .project-form__field textarea {
   min-height: 95px;
@@ -825,18 +850,12 @@ font-size: clamp(
   resize: vertical;
 }
 
-
-/* Placeholder */
-
 .project-form__field input::placeholder,
 .project-form__field textarea::placeholder {
   color: rgba(17, 17, 17, 0.42);
 
   transition: opacity 0.25s ease;
 }
-
-
-/* Focus */
 
 .project-form__field input:focus,
 .project-form__field textarea:focus {
@@ -850,7 +869,6 @@ font-size: clamp(
 
   transform: translateY(-1px);
 }
-
 
 .project-form__field input:focus::placeholder,
 .project-form__field textarea:focus::placeholder {
@@ -897,11 +915,12 @@ font-size: clamp(
 
   cursor: pointer;
 
+  box-sizing: border-box;
+
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease;
 }
-
 
 .project-form__submit::before {
   content: '';
@@ -914,15 +933,14 @@ font-size: clamp(
 
   transform: translateX(-101%);
 
-  transition: transform 0.4s
+  transition:
+    transform 0.4s
     cubic-bezier(0.16, 1, 0.3, 1);
 }
-
 
 .project-form__submit:hover::before {
   transform: translateX(0);
 }
-
 
 .project-form__submit span,
 .project-form__submit b {
@@ -931,14 +949,12 @@ font-size: clamp(
   z-index: 1;
 }
 
-
 .project-form__submit:hover {
   transform: translateY(-3px);
 
   box-shadow:
     0 18px 35px rgba(0, 0, 0, 0.2);
 }
-
 
 .project-form__submit b {
   font-size: 18px;
@@ -948,7 +964,6 @@ font-size: clamp(
   transition:
     transform 0.35s ease;
 }
-
 
 .project-form__submit:hover b {
   transform:
@@ -970,7 +985,6 @@ font-size: clamp(
   }
 }
 
-
 @keyframes modalSlideUp {
   from {
     opacity: 0;
@@ -991,10 +1005,114 @@ font-size: clamp(
 
 
 /* =========================================================
+   LARGE TABLET
+   901px - 1100px
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+  .cta__inner {
+    width: min(100% - 50px, 1000px);
+  }
+
+  .cta__heading {
+    font-size: clamp(
+      3.5rem,
+      7vw,
+      5.5rem
+    );
+  }
+
+  .cta__body {
+    grid-template-columns:
+      minmax(250px, 1fr)
+      minmax(260px, 1fr);
+
+    gap: 45px;
+  }
+
+  .cta__detail {
+    padding-inline: 20px;
+  }
+
+}
+
+
+/* =========================================================
    TABLET
+   601px - 900px
    ========================================================= */
 
 @media (max-width: 900px) {
+
+  .cta {
+    min-height: auto;
+
+    padding-block: 75px 65px;
+  }
+
+  .cta__inner {
+    width: min(
+      calc(100% - 40px),
+      720px
+    );
+  }
+
+  .cta__top {
+    margin-bottom: 55px;
+  }
+
+  .cta__heading {
+    max-width: 700px;
+
+    font-size: clamp(
+      3rem,
+      8vw,
+      5rem
+    );
+  }
+
+  .cta__body {
+    grid-template-columns: 1fr;
+
+    gap: 30px;
+
+    margin-top: 50px;
+  }
+
+  .cta__support {
+    max-width: 600px;
+  }
+
+  .cta__actions {
+    justify-content: flex-start;
+  }
+
+  .cta__details {
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+
+    margin-top: 75px;
+  }
+
+  .cta__detail {
+    min-height: 115px;
+
+    padding: 22px 16px;
+  }
+
+  .cta__detail:first-child {
+    padding-left: 0;
+  }
+
+  .cta__detail a,
+  .cta__detail strong {
+    font-size: 0.9rem;
+  }
+
+  .cta__bottom {
+    padding-top: 20px;
+  }
 
   .project-modal {
     padding: 18px;
@@ -1004,6 +1122,8 @@ font-size: clamp(
     width: min(600px, 100%);
 
     padding: 36px 30px;
+
+    max-height: 90vh;
   }
 
 }
@@ -1011,58 +1131,289 @@ font-size: clamp(
 
 /* =========================================================
    MOBILE
+   <= 600px
    ========================================================= */
 
 @media (max-width: 600px) {
+
+  .cta {
+    min-height: auto;
+
+    padding-block: 60px 50px;
+  }
+
+
+  /* INNER */
+
+  .cta__inner {
+    width: calc(100% - 32px);
+  }
+
+
+  /* BACKGROUND */
+
+  .cta__ghost {
+    top: 12%;
+
+    left: -12%;
+
+    font-size: clamp(
+      5rem,
+      25vw,
+      9rem
+    );
+
+    -webkit-text-stroke:
+      1px rgba(17, 17, 17, 0.07);
+  }
+
+  .cta__ghost--two {
+    bottom: 3%;
+
+    left: 15%;
+
+    font-size: clamp(
+      4rem,
+      20vw,
+      7rem
+    );
+  }
+
+
+  /* TOP */
+
+  .cta__top {
+    align-items: flex-start;
+
+    flex-direction: column;
+
+    gap: 12px;
+
+    padding-bottom: 18px;
+
+    margin-bottom: 45px;
+  }
+
+  .cta__status {
+    text-align: left;
+
+    font-size: 8px;
+
+    line-height: 1.5;
+  }
+
+
+  /* EYEBROW */
+
+  .cta__eyebrow {
+    margin-bottom: 18px;
+
+    font-size: 9px;
+
+    letter-spacing: 0.14em;
+  }
+
+  .cta__eyebrow::before {
+    width: 25px;
+  }
+
+
+  /* HEADING */
+
+  .cta__heading {
+    max-width: 100%;
+
+    font-size: clamp(
+      2.8rem,
+      13vw,
+      4.5rem
+    );
+
+    line-height: 0.9;
+
+    letter-spacing: -0.065em;
+  }
+
+  .cta__line--2 {
+    margin-left: 20px;
+  }
+
+
+  /* BODY */
+
+  .cta__body {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 28px;
+
+    margin-top: 42px;
+  }
+
+  .cta__support {
+    max-width: 100%;
+
+    font-size: 0.94rem;
+
+    line-height: 1.65;
+  }
+
+
+  /* BUTTONS */
+
+  .cta__actions {
+    width: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+  }
+
+  .cta__actions .btn {
+    width: 100%;
+
+    min-height: 52px;
+
+    justify-content: space-between;
+
+    padding-inline: 20px;
+  }
+
+
+  /* CONTACT DETAILS */
+
+  .cta__details {
+    display: flex;
+
+    flex-direction: column;
+
+    margin-top: 60px;
+  }
+
+  .cta__detail {
+    min-height: auto;
+
+    padding: 20px 0;
+
+    gap: 10px;
+
+    border-right: none;
+
+    border-bottom: 1px solid
+      rgba(17, 17, 17, 0.14);
+  }
+
+  .cta__detail:first-child {
+    padding-left: 0;
+  }
+
+  .cta__detail:last-child {
+    border-bottom: none;
+  }
+
+  .cta__detail a,
+  .cta__detail strong {
+    width: 100%;
+
+    font-size: 0.95rem;
+
+    line-height: 1.4;
+  }
+
+
+  /* BOTTOM */
+
+  .cta__bottom {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 8px;
+
+    padding-top: 20px;
+
+    font-size: 7px;
+
+    line-height: 1.5;
+  }
+
+
+  /* =====================================================
+     MOBILE MODAL
+     ===================================================== */
 
   .project-modal {
     padding: 10px;
 
     align-items: center;
-  }
 
+    overflow-y: auto;
+  }
 
   .project-modal__box {
     width: 100%;
 
+    max-width: 100%;
+
     max-height: 94vh;
 
-    padding: 30px 20px;
+    padding: 28px 18px;
 
-    border-radius: 24px;
+    border-radius: 22px;
   }
 
+
+  /* CLOSE */
+
+  .project-modal__close {
+    top: 12px;
+
+    right: 12px;
+
+    width: 38px;
+    height: 38px;
+
+    font-size: 22px;
+  }
+
+
+  /* HEADER */
 
   .project-modal__header {
-    padding-right: 40px;
+    padding-right: 45px;
 
-    margin-bottom: 25px;
+    margin-bottom: 22px;
+  }
+
+  .project-modal__label {
+    font-size: 8px;
+
+    padding: 6px 9px;
   }
 
 
-  .project-modal__header h3 {
-    font-size: 2.15rem;
-  }
-
-
-  .project-modal__header p {
-    font-size: 13px;
-
-    margin-top: 14px;
-  }
-
+  /* FORM */
 
   .project-form {
-    gap: 15px;
+    gap: 14px;
   }
-
 
   .project-form__row {
     grid-template-columns: 1fr;
 
-    gap: 15px;
+    gap: 14px;
   }
 
+  .project-form__field {
+    gap: 7px;
+  }
+
+  .project-form__field label {
+    font-size: 9px;
+  }
 
   .project-form__field input,
   .project-form__field textarea {
@@ -1071,15 +1422,18 @@ font-size: clamp(
     border-radius: 12px;
   }
 
+  .project-form__field input {
+    height: 46px;
+  }
 
-  .project-modal__close {
-    top: 13px;
-    right: 13px;
+  .project-form__field textarea {
+    min-height: 100px;
+  }
 
-    width: 38px;
-    height: 38px;
+  .project-form__submit {
+    min-height: 52px;
 
-    font-size: 22px;
+    padding: 15px 18px;
   }
 
 }
@@ -1087,19 +1441,167 @@ font-size: clamp(
 
 /* =========================================================
    SMALL MOBILE
+   <= 380px
    ========================================================= */
 
 @media (max-width: 380px) {
 
-  .project-modal__box {
-    padding: 27px 17px;
+  .cta {
+    padding-block: 50px 42px;
+  }
 
-    border-radius: 20px;
+  .cta__inner {
+    width: calc(100% - 24px);
+  }
+
+  .cta__top {
+    margin-bottom: 38px;
+  }
+
+  .cta__heading {
+    font-size: 2.65rem;
+
+    line-height: 0.92;
+  }
+
+  .cta__line--2 {
+    margin-left: 12px;
+  }
+
+  .cta__body {
+    margin-top: 35px;
+  }
+
+  .cta__support {
+    font-size: 0.88rem;
+  }
+
+  .cta__actions .btn {
+    min-height: 50px;
+
+    padding-inline: 17px;
+  }
+
+  .cta__detail {
+    padding-block: 18px;
+  }
+
+  .cta__detail a,
+  .cta__detail strong {
+    font-size: 0.88rem;
   }
 
 
-  .project-modal__header h3 {
-    font-size: 1.9rem;
+  /* MODAL */
+
+  .project-modal {
+    padding: 7px;
+  }
+
+  .project-modal__box {
+    padding: 25px 15px;
+
+    border-radius: 19px;
+  }
+
+  .project-modal__header {
+    padding-right: 40px;
+
+    margin-bottom: 19px;
+  }
+
+  .project-form {
+    gap: 12px;
+  }
+
+  .project-form__field input {
+    height: 44px;
+  }
+
+  .project-form__field textarea {
+    min-height: 90px;
+  }
+
+}
+
+
+/* =========================================================
+   EXTRA SMALL DEVICES
+   <= 340px
+   ========================================================= */
+
+@media (max-width: 340px) {
+
+  .cta__heading {
+    font-size: 2.35rem;
+  }
+
+  .cta__support {
+    font-size: 0.84rem;
+  }
+
+  .cta__actions .btn {
+    font-size: 12px;
+  }
+
+  .project-modal__box {
+    padding: 22px 13px;
+  }
+
+  .project-modal__close {
+    width: 34px;
+    height: 34px;
+
+    font-size: 20px;
+  }
+
+  .project-modal__header {
+    padding-right: 38px;
+  }
+
+}
+
+
+/* =========================================================
+   LANDSCAPE MOBILE
+   ========================================================= */
+
+@media (max-height: 600px) and (max-width: 900px) {
+
+  .project-modal__box {
+    max-height: 92vh;
+  }
+
+  .project-modal {
+    align-items: flex-start;
+
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+
+}
+
+
+/* =========================================================
+   TOUCH DEVICES
+   ========================================================= */
+
+@media (hover: none) {
+
+  .cta__actions .btn:hover {
+    transform: none;
+  }
+
+  .cta__actions .btn:hover b {
+    transform: none;
+  }
+
+  .project-modal__close:hover {
+    transform: none;
+  }
+
+  .project-form__submit:hover {
+    transform: none;
   }
 
 }
@@ -1111,15 +1613,16 @@ font-size: clamp(
 
 @media (prefers-reduced-motion: reduce) {
 
-  .project-modal,
-  .project-modal__box,
+  .cta *,
+  .project-modal *,
   .modal-dot {
     animation: none !important;
-  }
 
-  .project-modal *,
-  .project-modal__submit {
     transition: none !important;
   }
 
+  .project-modal,
+  .project-modal__box {
+    animation: none !important;
+  }
 }
