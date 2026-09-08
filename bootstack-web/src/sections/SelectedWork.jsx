@@ -1,127 +1,118 @@
-import { useEffect, useRef, useState } from 'react';
-import { gsap, ScrollTrigger } from '../lib/motion';
-import SectionMarker from '../components/SectionMarker.jsx';
-import WorkVisual from '../components/WorkVisual.jsx';
-import MagneticButton from '../components/MagneticButton.jsx';
-import { work } from '../data/work';
-import { useIsDesktop } from '../hooks/useMediaQuery';
-import './SelectedWork.css';
+const projects = [
+  {
+    number: "01",
+    tags: ["BRANDING", "WEBSITE", "PERFORMANCE MARKETING"],
+    description:
+      "Reserved for the first brand we take from positioning through to launch — the real brief, the real build, the real numbers, written up in full.",
+    artwork: "bars",
+  },
+  {
+    number: "02",
+    tags: ["SOFTWARE DEVELOPMENT", "ERP", "AUTOMATION"],
+    description:
+      "A custom ERP or business application that brings sales, inventory, finance, HR and operations into one system. When one ships, the story goes here — measured, not estimated.",
+    artwork: "circle",
+  },
+  {
+    number: "03",
+    tags: ["LEAD GENERATION", "GOOGLE ADS", "META ADS"],
+    description:
+      "A performance programme run end to end — audience research, campaign build, landing pages and tracking. Every figure published here will be one we can show you inside the account.",
+    artwork: "grid",
+  },
+];
 
-/**
- * Section 05 — Selected Work.
- *
- * On desktop the artwork column holds still while the case studies move past
- * it, swapping underneath: the visuals feel like one continuous surface rather
- * than five separate cards. On smaller screens each study becomes a full-bleed
- * block with its own visual.
- */
-export default function SelectedWork() {
-  const rootRef = useRef(null);
-  const isDesktop = useIsDesktop();
-  const [current, setCurrent] = useState(0);
+function ProjectArtwork({ type }) {
+  if (type === "bars") {
+    return (
+      <div className="project-artwork artwork-bars">
+        <span className="art-bar art-bar-blue" />
+        <span className="art-bar art-bar-yellow-small" />
+        <span className="art-bar art-bar-gray" />
+        <span className="art-bar art-bar-yellow-large" />
+      </div>
+    );
+  }
 
-  useEffect(() => {
-    if (!isDesktop) return undefined;
-
-    const ctx = gsap.context(() => {
-      gsap.utils.toArray('.work__study').forEach((panel, i) => {
-        ScrollTrigger.create({
-          trigger: panel,
-          start: 'top 62%',
-          end: 'bottom 62%',
-          onEnter: () => setCurrent(i),
-          onEnterBack: () => setCurrent(i),
-        });
-      });
-    }, rootRef);
-
-    return () => ctx.revert();
-  }, [isDesktop]);
+  if (type === "circle") {
+    return (
+      <div className="project-artwork artwork-circle">
+        <span className="circle-ring ring-one" />
+        <span className="circle-ring ring-two" />
+        <span className="circle-ring ring-three" />
+        <span className="circle-ring ring-four" />
+        <span className="circle-ring ring-five" />
+        <span className="circle-center" />
+        <span className="circle-dot" />
+      </div>
+    );
+  }
 
   return (
-    <section ref={rootRef} id="work" className="work band" data-bg="white">
-      <div className="shell">
-        <SectionMarker index="05" title="Selected Work" note="A sample, not the archive" />
+    <div className="project-artwork artwork-grid">
+      <div className="pixel-container">
+        {Array.from({ length: 64 }).map((_, index) => (
+          <span
+            key={index}
+            className={`pixel ${
+              [2, 7, 9, 13, 19, 26, 28, 34, 39, 45, 49, 54, 61]
+                .includes(index)
+                ? "pixel-active"
+                : ""
+            }`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
 
-        <div className="work__head">
-          <h2 className="display display--xxl" data-reveal>
-            Selected
-            <br />
-            <span className="work__head-accent">Work</span>
-          </h2>
-          <p className="body" data-reveal style={{ '--reveal-delay': '80ms' }}>
-            Five businesses, five different problems. In every case the brief was the same
-            underneath: make the thing legible, then make it grow.
-          </p>
-        </div>
+export default function ProjectSection() {
+  return (
+    <section className="projects-section">
+      <div className="projects-heading">
+        <h2>
+          SELECTED
+          <br />
+          WORK
+        </h2>
+
+        <p>
+          Bootstack is just getting started. Every project on this page will
+          be a real, measurable growth story written up only once the numbers
+          exist.
+        </p>
       </div>
 
-      <div className="work__body shell">
-        {isDesktop && (
-          <div className="work__viewport" aria-hidden="true">
-            <div className="work__frame">
-              {work.map((item, i) => (
-                <div
-                  key={item.id}
-                  className={`work__art${current === i ? ' is-current' : ''}`}
-                >
-                  <WorkVisual art={item.art} />
-                </div>
-              ))}
+      <div className="projects-list">
+        {projects.map((project) => (
+          <article className="project-card" key={project.number}>
+            <ProjectArtwork type={project.artwork} />
 
-              <div className="work__counter mono">
-                <span className="work__counter-now">{work[current]?.index}</span>
-                <span className="work__counter-sep" />
-                <span>{String(work.length).padStart(2, '0')}</span>
-              </div>
-            </div>
-          </div>
-        )}
-
-        <ol className="work__studies">
-          {work.map((item) => (
-            <li key={item.id} className={`work__study work__study--${item.tone}`}>
-              {!isDesktop && (
-                <div className="work__art-inline">
-                  <WorkVisual art={item.art} />
-                </div>
-              )}
-
-              <div className="work__meta mono" data-reveal>
-                <span className="work__idx">{item.index}</span>
-                <span>{item.industry}</span>
+            <div className="project-card-content">
+              <div className="project-category">
+                CATEGORY / INDUSTRY
               </div>
 
-              <h3 className="work__client display" data-reveal>
-                {item.client}
-              </h3>
+              <h3>Your project could be here</h3>
 
-              <ul className="work__scope" data-reveal>
-                {item.scope.map((s) => (
-                  <li key={s} className="mono">
-                    {s}
-                  </li>
-                ))}
-              </ul>
-
-              <p className="work__summary lead" data-reveal>
-                {item.summary}
+              <p className="project-description">
+                {project.description}
               </p>
 
-              <div className="work__outcome" data-reveal>
-                <span className="work__value display">{item.outcome.value}</span>
-                <span className="work__label">{item.outcome.label}</span>
+              <div className="project-tags">
+                {project.tags.map((tag) => (
+                  <span key={tag}>{tag}</span>
+                ))}
               </div>
-            </li>
-          ))}
-        </ol>
-      </div>
 
-      <div className="shell work__foot">
-        <p className="body">Work in progress that we cannot show yet is usually the good stuff.</p>
-        <MagneticButton href="#contact" variant="ghost">
-          Ask about a project like yours
-        </MagneticButton>
+              <div className="project-bottom">
+                <strong>Open</strong>
+                <span>taking on projects for this slot</span>
+              </div>
+            </div>
+          </article>
+        ))}
       </div>
     </section>
   );
