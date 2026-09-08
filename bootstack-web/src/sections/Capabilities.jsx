@@ -1,74 +1,135 @@
-import { useState } from 'react';
-import SectionMarker from '../components/SectionMarker.jsx';
-import { capabilities } from '../data/capabilities';
-import './Capabilities.css';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import useReveal from "../hooks/useReveal";
+import "../style/WhatWeBuild.css";
 
-/** Small glyph per territory — keeps the row scannable at a glance. */
-const ICON = {
-  brand: '✦',
-  create: '✎',
-  grow: '↗',
-  build: '⌘',
-  automate: '⚡',
-  strategy: '◎',
+const ArrowIcon = () => (
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M5 12h13M13 6l6 6-6 6" />
+  </svg>
+);
+
+const icons = {
+  erp: "▦",
+  mobile: "▯",
+  website: "◌",
+  leads: "↗",
+  branding: "✦",
 };
 
-/**
- * Section 03 — six territories as a simple click-to-expand list.
- * No motion, no scroll reveal — just an accordion.
- */
-export default function Capabilities() {
-  const [active, setActive] = useState(0);
+const services = [
+  {
+    id: "software-development",
+    title: "ERP Solutions",
+    icon: icons.erp,
+    description:
+      "Streamline operations with custom ERP systems for sales, inventory, projects, finance, HR and workflows.",
+    features: ["Inventory Management", "Finance & Accounting", "HR & Payroll", "CRM Integration"],
+  },
+  {
+    id: "app-development",
+    title: "Mobile App Development",
+    icon: icons.mobile,
+    description:
+      "Build fast, intuitive and scalable mobile applications with seamless experiences across modern devices.",
+    features: ["Android Applications", "iOS Applications", "Cross-Platform Apps", "API Integration"],
+  },
+  {
+    id: "website-development",
+    title: "High-Performing Websites",
+    icon: icons.website,
+    description:
+      "Create modern, responsive and high-performing websites that strengthen your brand and convert visitors.",
+    features: ["Responsive Design", "SEO Optimization", "Performance Optimization", "CMS Integration"],
+  },
+  {
+    id: "performance-marketing",
+    title: "Lead Generation",
+    icon: icons.leads,
+    description:
+      "Generate high-quality leads through data-driven digital strategies designed to increase business opportunities.",
+    features: ["Landing Pages", "Conversion Optimization", "Marketing Automation", "Lead Tracking"],
+  },
+  {
+    id: "branding-uiux",
+    title: "Brand Identity & Branding",
+    icon: icons.branding,
+    description:
+      "Build a memorable brand identity with a consistent visual language that communicates your values.",
+    features: ["Logo Design", "Visual Identity", "Brand Guidelines", "Marketing Materials"],
+  },
+];
 
-  const toggle = (i) => setActive((current) => (current === i ? -1 : i));
+export default function WhatWeBuild() {
+  const navigate = useNavigate();
+  const [activeService, setActiveService] = useState(0);
+  const headerRef = useReveal();
+  const layoutRef = useReveal({ threshold: 0.05 });
+  const currentService = services[activeService];
 
   return (
-    <section id="capabilities" className="cap band" data-bg="white">
-      <div className="shell">
-        <SectionMarker index="03" title="What Bootstack does" note="Six territories, one team" />
-
-        <div className="cap__head">
-          <h2 className="display display--xl">Everything a business needs, kept under one roof.</h2>
-          <p className="body">Open a territory to see what sits inside it.</p>
+    <section className="build-section" id="what-we-build">
+      <div className="build-container">
+        <div className="build-header reveal" ref={headerRef}>
+          <span className="build-eyebrow">WHAT WE BUILD</span>
+          <h2>Digital Solutions <span>That Work.</span></h2>
+          <p>
+            Technology and growth solutions designed around your business,
+            your customers and your goals.
+          </p>
         </div>
 
-        <div className="cap__list">
-          {capabilities.map((item, i) => {
-            const isOpen = active === i;
-            return (
-              <article
-                key={item.id}
-                className={`cap__row cap__row--${item.tone}${isOpen ? ' is-open' : ''}`}
+        <div className="build-layout" ref={layoutRef}>
+          <div className="build-services">
+            {services.map((service, index) => (
+              <button
+                key={service.id}
+                type="button"
+                className={`build-service ${
+                  activeService === index ? "build-service--active" : ""
+                }`}
+                onClick={() => setActiveService(index)}
               >
-                <button
-                  type="button"
-                  className="cap__trigger"
-                  aria-expanded={isOpen}
-                  aria-controls={`cap-panel-${item.id}`}
-                  onClick={() => toggle(i)}
-                >
-                  <span className="cap__icon" aria-hidden="true">{ICON[item.id]}</span>
-                  <span className="cap__index mono">{item.index}</span>
-                  <span className="cap__title display">{item.title}</span>
-                  <span className="cap__verb">{item.verb}</span>
-                  <span className="cap__sign" aria-hidden="true">{isOpen ? '−' : '+'}</span>
-                </button>
+                <span className="build-service__icon">{service.icon}</span>
+                <span className="build-service__title">{service.title}</span>
+                <span className="build-service__arrow"><ArrowIcon /></span>
+              </button>
+            ))}
+          </div>
 
-                {isOpen && (
-                  <div className="cap__panel" id={`cap-panel-${item.id}`} role="region">
-                    <p className="cap__blurb">{item.blurb}</p>
-                    <ul className="cap__items">
-                      {item.items.map((sub) => (
-                        <li key={sub}>
-                          <span className="mono">{sub}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </article>
-            );
-          })}
+          <div className="build-details build-details--fade" key={currentService.id}>
+            <div className="build-details__top">
+              <div className="build-details__icon">{currentService.icon}</div>
+              <div>
+                <span className="build-details__label">SERVICE</span>
+                <h3>{currentService.title}</h3>
+              </div>
+            </div>
+
+            <p className="build-details__description">
+              {currentService.description}
+            </p>
+
+            <div className="build-features">
+              {currentService.features.map((feature, index) => (
+                <div className="build-feature" key={feature}>
+                  <span className="build-feature__number">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span>{feature}</span>
+                </div>
+              ))}
+            </div>
+
+            <button
+              type="button"
+              className="build-details__button"
+              onClick={() => navigate(`/services/${currentService.id}`)}
+            >
+              Explore Service
+              <ArrowIcon />
+            </button>
+          </div>
         </div>
       </div>
     </section>
