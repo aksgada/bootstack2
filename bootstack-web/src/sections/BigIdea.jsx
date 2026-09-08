@@ -121,14 +121,7 @@ export default function WhatWeBuild() {
               ))}
             </div>
 
-            <button
-              type="button"
-              className="build-details__button"
-              onClick={() => navigate(`/services/${currentService.id}`)}
-            >
-              Explore Service
-              <ArrowIcon />
-            </button>
+            
           </div>
         </div>
       </div>
