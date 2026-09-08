@@ -60,7 +60,7 @@ const services = [
   },
 ];
 
-export default function WhatWeBuild() {
+export default function BigIdea() {
   const navigate = useNavigate();
   const [activeService, setActiveService] = useState(0);
   const headerRef = useReveal();
