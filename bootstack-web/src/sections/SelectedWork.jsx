@@ -1,3 +1,4 @@
+import "./SelectedWork.css";
 const projects = [
   {
     number: "01",
