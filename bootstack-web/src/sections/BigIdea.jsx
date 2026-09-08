@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useReveal from "../hooks/useReveal";
-import "../style/WhatWeBuild.css";
+import "./BigIdea.css";
 
 const ArrowIcon = () => (
   <svg viewBox="0 0 24 24" aria-hidden="true">
