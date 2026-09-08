@@ -68,8 +68,6 @@ export default function App() {
         <Approach />
         <WhyBootstack />
         <TechStack />
-        <Impact />
-        <Voices />
         <About />
         <FinalCta />
       </main>
