@@ -1,6 +1,6 @@
 import React from "react";
 import useReveal from "../hooks/useReveal";
-import "../style/AboutSection.css";
+import "./About.css";
 
 const features = ["Strategy", "Technology", "Execution", "Growth"];
 
