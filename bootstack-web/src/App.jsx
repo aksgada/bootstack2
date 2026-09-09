@@ -15,6 +15,7 @@ import ScrollBadge from "./components/ScrollBadge.jsx";
 import ServiceDetails from "./sections/ServiceDetails.jsx";
 
 import Hero from "./sections/Hero.jsx";
+import About from "./sections/About.jsx";
 import BigIdea from "./sections/BigIdea.jsx";
 import SelectedWork from "./sections/SelectedWork.jsx";
 import Approach from "./sections/Approach.jsx";
