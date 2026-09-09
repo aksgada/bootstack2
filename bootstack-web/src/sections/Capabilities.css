@@ -1,459 +1,917 @@
 /* =========================================================
-   CAPABILITIES
-   3 CARDS PER ROW — RESPONSIVE
+   WHAT WE BUILD
+   Premium Responsive Services Section
    ========================================================= */
 
-.cap {
-  color: var(--ink);
-  --fg: var(--ink);
-  --fg-soft: rgba(8, 22, 31, 0.62);
-  --fg-faint: rgba(8, 22, 31, 0.36);
-  --rule: rgba(26, 66, 95, 0.14);
-}
-
-/* ---------------------------------------------------------
-   HEADER
-   --------------------------------------------------------- */
-
-.cap__head {
-  display: grid;
-  gap: var(--s-2);
-  max-width: 90ch;
-  margin-bottom: clamp(2rem, 5vh, 3.25rem);
-}
-
-.cap__head h2 {
-  letter-spacing: -0.045em;
-  line-height: 0.95;
-}
-
-.cap__head .body {
-  color: var(--fg-faint);
-}
-
-/* ---------------------------------------------------------
-   3 COLUMN GRID
-   --------------------------------------------------------- */
-
-.cap__list {
-  display: grid;
-
-  /* 3 cards in one row */
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-
-  gap: 18px;
-}
-
-/* ---------------------------------------------------------
-   CARD
-   --------------------------------------------------------- */
-
-.cap__row {
-  --tone: var(--cyan-deep);
-  --tone-soft: rgba(64, 168, 196, 0.1);
-  --tone-line: rgba(64, 168, 196, 0.32);
-
-  position: relative;
-
-  border: 1px solid var(--rule);
-  border-radius: 18px;
-
-  background: var(--white, #fff);
-
-  overflow: hidden;
-
-  transition:
-    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.45s ease,
-    border-color 0.35s ease,
-    background 0.35s ease;
-}
-
-.cap__row:hover {
-  transform: translateY(-6px);
-
-  border-color: var(--tone-line);
-
-  box-shadow:
-    0 18px 45px rgba(8, 22, 31, 0.1);
-}
-
-.cap__row--yellow {
-  --tone: var(--yellow);
-  --tone-soft: rgba(247, 170, 0, 0.12);
-  --tone-line: rgba(247, 170, 0, 0.4);
-}
-
-.cap__row--cyan {
-  --tone: var(--cyan);
-  --tone-soft: rgba(64, 168, 196, 0.1);
-  --tone-line: rgba(64, 168, 196, 0.32);
-}
-
-.cap__row--blue {
-  --tone: var(--blue);
-  --tone-soft: rgba(35, 87, 132, 0.08);
-  --tone-line: rgba(35, 87, 132, 0.3);
-}
-
-.cap__row.is-open {
-  background: var(--tone-soft);
-  border-color: var(--tone-line);
-
-  transform: translateY(-4px);
-}
-
-/* ---------------------------------------------------------
-   TOP ACCENT
-   --------------------------------------------------------- */
-
-.cap__row::before {
-  content: '';
-
-  position: absolute;
-  top: 0;
-  left: 0;
+.build-section {
+  --build-bg: #edf8f9;
+  --build-card: #ffffff;
+  --build-blue: #287ea8;
+  --build-blue-dark: #205f7f;
+  --build-cyan: #40a9cc;
+  --build-yellow: #f6c84c;
+  --build-text: #18242b;
+  --build-muted: #6d8089;
+  --build-border: rgba(40, 126, 168, 0.12);
 
   width: 100%;
-  height: 3px;
 
-  background: var(--tone);
+  padding:
+    clamp(70px, 9vw, 125px)
+    20px;
 
-  transform: scaleX(0);
-  transform-origin: left;
+  background: var(--build-bg);
 
-  transition: transform 0.5s
-    cubic-bezier(0.22, 1, 0.36, 1);
+  overflow: hidden;
 }
 
-.cap__row:hover::before,
-.cap__row.is-open::before {
-  transform: scaleX(1);
+
+/* =========================================================
+   CONTAINER
+   ========================================================= */
+
+.build-container {
+  width: min(1120px, 100%);
+
+  margin: 0 auto;
 }
 
-/* ---------------------------------------------------------
-   TRIGGER
-   --------------------------------------------------------- */
 
-.cap__trigger {
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.build-header {
+  text-align: center;
+
+  margin-bottom:
+    clamp(35px, 5vw, 55px);
+}
+
+.build-eyebrow {
+  display: block;
+
+  margin-bottom: 10px;
+
+  color: var(--build-blue);
+
+  font-size: 9px;
+  font-weight: 800;
+
+  letter-spacing: 0.28em;
+
+  text-transform: uppercase;
+}
+
+.build-header h2 {
+  margin: 0;
+
+  color: var(--build-blue);
+
+  font-size:
+    clamp(32px, 4.5vw, 50px);
+
+  line-height: 1.05;
+
+  font-weight: 700;
+
+  letter-spacing: -0.045em;
+}
+
+.build-header h2 span {
+  color: var(--build-cyan);
+}
+
+.build-header p {
+  width: min(580px, 100%);
+
+  margin:
+    15px auto 0;
+
+  color: var(--build-muted);
+
+  font-size:
+    clamp(14px, 1.5vw, 16px);
+
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   MAIN LAYOUT
+   ========================================================= */
+
+.build-layout {
   display: grid;
 
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns:
+    minmax(280px, 0.95fr)
+    minmax(400px, 1.25fr);
+
+  gap: clamp(25px, 4vw, 45px);
+
+  align-items: stretch;
+}
+
+
+/* =========================================================
+   SCROLL REVEAL
+   ========================================================= */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+
+  transition:
+    opacity 0.6s cubic-bezier(0.16, 0.84, 0.44, 1),
+    transform 0.6s cubic-bezier(0.16, 0.84, 0.44, 1);
+}
+
+.build-header.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.build-services {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity .7s cubic-bezier(.16,1,.3,1),
+    transform .7s cubic-bezier(.16,1,.3,1);
+}
+
+.build-layout.in-view .build-services {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: .1s;
+}
+
+
+/* =========================================================
+   DETAIL PANEL CROSSFADE
+   Plays every time the active service changes (the panel
+   remounts via React key), independent of scroll position.
+   ========================================================= */
+
+@keyframes build-details-fade {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.build-details--fade {
+  animation: build-details-fade 0.45s cubic-bezier(0.16, 0.84, 0.44, 1) both;
+}
+
+
+/* =========================================================
+   LEFT SERVICE LIST
+   ========================================================= */
+
+.build-services {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+
+/* =========================================================
+   SERVICE BUTTON
+   ========================================================= */
+
+.build-service {
+  position: relative;
+
+  width: 100%;
+
+  min-height: 54px;
+
+  display: flex;
 
   align-items: center;
 
   gap: 12px;
 
-  width: 100%;
+  padding:
+    13px
+    15px;
 
-  min-height: 150px;
+  border:
+    1px solid
+    var(--build-border);
 
-  padding: 1.3rem;
+  border-radius: 9px;
+
+  background:
+    rgba(255, 255, 255, 0.3);
+
+  color: var(--build-blue);
+
+  font-family: inherit;
 
   text-align: left;
 
-  color: inherit;
-
   cursor: pointer;
-}
-
-/* ---------------------------------------------------------
-   ICON
-   --------------------------------------------------------- */
-
-.cap__icon {
-  display: grid;
-  place-items: center;
-
-  width: 42px;
-  height: 42px;
-
-  border-radius: 12px;
-
-  background: var(--tone-soft);
-
-  color: var(--blue);
-
-  font-size: 1rem;
-
-  transition:
-    transform 0.4s ease,
-    background 0.4s ease,
-    color 0.4s ease;
-}
-
-.cap__row:hover .cap__icon {
-  transform: rotate(-8deg) scale(1.08);
-}
-
-.cap__row.is-open .cap__icon {
-  background: var(--tone);
-  color: var(--ink);
-}
-
-.cap__row--blue.is-open .cap__icon {
-  color: var(--mist);
-}
-
-/* ---------------------------------------------------------
-   INDEX
-   --------------------------------------------------------- */
-
-.cap__index {
-  position: absolute;
-
-  top: 18px;
-  right: 18px;
-
-  color: var(--fg-faint);
-
-  font-size: 0.65rem;
-
-  letter-spacing: 0.1em;
-}
-
-/* ---------------------------------------------------------
-   TITLE
-   --------------------------------------------------------- */
-
-.cap__title {
-  display: block;
-
-  padding-top: 28px;
-
-  font-size: clamp(1.25rem, 2vw, 1.7rem);
-
-  line-height: 1;
-
-  text-transform: uppercase;
-
-  letter-spacing: -0.035em;
-
-  transition:
-    transform 0.4s ease;
-}
-
-.cap__row:hover .cap__title {
-  transform: translateX(3px);
-}
-
-/* ---------------------------------------------------------
-   VERB
-   --------------------------------------------------------- */
-
-.cap__verb {
-  display: none;
-
-  color: var(--fg-soft);
-
-  font-size: 0.85rem;
-
-  font-style: italic;
-}
-
-/* ---------------------------------------------------------
-   PLUS / MINUS
-   --------------------------------------------------------- */
-
-.cap__sign {
-  display: grid;
-  place-items: center;
-
-  width: 30px;
-  height: 30px;
-
-  flex: none;
-
-  border-radius: 50%;
-
-  border: 1px solid var(--rule);
-
-  font-size: 1rem;
-
-  line-height: 1;
-
-  transition:
-    transform 0.4s ease,
-    background 0.4s ease,
-    border-color 0.4s ease;
-}
-
-.cap__row:hover .cap__sign {
-  transform: rotate(90deg);
-}
-
-.cap__row.is-open .cap__sign {
-  transform: rotate(180deg);
-
-  border-color: var(--tone-line);
-
-  background: var(--white, #fff);
-}
-
-/* ---------------------------------------------------------
-   PANEL
-   --------------------------------------------------------- */
-
-.cap__panel {
-  padding: 0 1.3rem 1.3rem;
-
-  display: grid;
-
-  gap: 1rem;
-
-  border-top: 1px solid var(--tone-line);
-}
-
-.cap__blurb {
-  max-width: 42ch;
-
-  margin-top: 1rem;
-
-  color: var(--fg-soft);
-
-  font-size: 0.88rem;
-
-  line-height: 1.6;
-}
-
-/* ---------------------------------------------------------
-   TAGS
-   --------------------------------------------------------- */
-
-.cap__items {
-  display: flex;
-
-  flex-wrap: wrap;
-
-  gap: 0.45rem;
-}
-
-.cap__items li span {
-  display: inline-block;
-
-  padding: 0.5em 0.8em;
-
-  border: 1px solid var(--tone-line);
-
-  border-radius: 999px;
-
-  background: var(--white, #fff);
-
-  color: var(--fg-soft);
-
-  font-size: 0.65rem;
 
   transition:
     background 0.3s ease,
-    color 0.3s ease;
+    border-color 0.3s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
-.cap__items li span:hover {
-  background: var(--tone);
 
-  color: var(--ink);
+/* Hover */
+
+.build-service:hover {
+  transform: translateX(4px);
+
+  background: rgba(255, 255, 255, 0.75);
+
+  border-color:
+    rgba(40, 126, 168, 0.2);
+}
+
+
+/* Active */
+
+.build-service--active {
+  background: #fff9e8;
+
+  border-color:
+    rgba(246, 200, 76, 0.85);
+
+  box-shadow:
+    0 8px 25px
+    rgba(246, 200, 76, 0.08);
+}
+
+.build-service--active:hover {
+  transform: translateX(4px);
+}
+
+
+/* =========================================================
+   SERVICE ICON
+   ========================================================= */
+
+.build-service__icon {
+  flex-shrink: 0;
+
+  width: 22px;
+  height: 22px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  color: var(--build-cyan);
+
+  font-size: 13px;
+}
+
+.build-service--active
+.build-service__icon {
+  color: #e7a900;
+}
+
+
+
+.build-service__arrow svg,
+.build-details__button svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
 }
 
 /* =========================================================
-   TABLET — 2 CARDS
+   SERVICE TITLE
    ========================================================= */
 
-@media (max-width: 1000px) {
+.build-service__title {
+  flex: 1;
 
-  .cap__list {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  min-width: 0;
+
+  color: var(--build-blue);
+
+  font-size:
+    clamp(12px, 1.3vw, 14px);
+
+  font-weight: 700;
+
+  line-height: 1.3;
+}
+
+
+/* =========================================================
+   SERVICE ARROW
+   ========================================================= */
+
+.build-service__arrow {
+  flex-shrink: 0;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  opacity: 0;
+
+  color: var(--build-cyan);
+
+  font-size: 10px;
+
+  transform: translateX(-5px);
+
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+.build-service:hover
+.build-service__arrow,
+.build-service--active
+.build-service__arrow {
+  opacity: 1;
+
+  transform: translateX(0);
+}
+
+
+/* =========================================================
+   RIGHT DETAILS CARD
+   ========================================================= */
+
+.build-details {
+  position: relative;
+
+  min-height: 330px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  padding:
+    clamp(25px, 4vw, 40px);
+
+  border:
+    1px solid
+    rgba(40, 126, 168, 0.1);
+
+  border-radius: 13px;
+
+  background: var(--build-card);
+
+  box-shadow:
+    0 18px 45px
+    rgba(28, 91, 111, 0.08);
+
+  animation:
+    buildFade 0.4s ease both;
+}
+
+
+/* =========================================================
+   CARD ANIMATION
+   ========================================================= */
+
+@keyframes buildFade {
+
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(8px);
   }
 
-  .cap__trigger {
-    min-height: 140px;
-  }
+  to {
+    opacity: 1;
 
-  .cap__title {
-    font-size: 1.35rem;
+    transform:
+      translateY(0);
   }
 }
 
+
 /* =========================================================
-   MOBILE — 1 CARD
+   DETAIL TOP
    ========================================================= */
 
-@media (max-width: 650px) {
+.build-details__top {
+  display: flex;
 
-  .cap__head {
-    margin-bottom: 2rem;
+  align-items: center;
+
+  gap: 14px;
+
+  margin-bottom: 20px;
+}
+
+
+/* =========================================================
+   DETAIL ICON
+   ========================================================= */
+
+.build-details__icon {
+  width: 44px;
+  height: 44px;
+
+  flex-shrink: 0;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+
+  background:
+    #eef9fc;
+
+  color: var(--build-cyan);
+
+  font-size: 18px;
+}
+
+
+/* =========================================================
+   LABEL
+   ========================================================= */
+
+.build-details__label {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #91a5ad;
+
+  font-size: 8px;
+
+  font-weight: 800;
+
+  letter-spacing: 0.15em;
+
+  text-transform: uppercase;
+}
+
+
+/* =========================================================
+   TITLE
+   ========================================================= */
+
+.build-details h3 {
+  margin: 0;
+
+  color: var(--build-blue);
+
+  font-size:
+    clamp(22px, 2.5vw, 30px);
+
+  line-height: 1.15;
+
+  font-weight: 750;
+
+  letter-spacing: -0.03em;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+   ========================================================= */
+
+.build-details__description {
+  max-width: 680px;
+
+  margin:
+    0 0 25px;
+
+  color: #64777f;
+
+  font-size:
+    clamp(13px, 1.4vw, 15px);
+
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   FEATURES
+   ========================================================= */
+
+.build-features {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap:
+    12px
+    10px;
+
+  margin-bottom: 28px;
+}
+
+
+/* =========================================================
+   FEATURE
+   ========================================================= */
+
+.build-feature {
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  min-width: 0;
+
+  color: #516871;
+
+  font-size:
+    clamp(11px, 1.2vw, 13px);
+
+  line-height: 1.4;
+}
+
+
+/* =========================================================
+   FEATURE NUMBER
+   ========================================================= */
+
+.build-feature__number {
+  flex-shrink: 0;
+
+  width: 23px;
+  height: 23px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background:
+    var(--build-cyan);
+
+  color: white;
+
+  font-size: 8px;
+
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   CTA
+   ========================================================= */
+
+.build-details__button {
+  align-self: flex-start;
+
+  margin-top: auto;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 9px;
+
+  min-height: 40px;
+
+  padding:
+    10px
+    17px;
+
+  border: 0;
+
+  border-radius: 7px;
+
+  background:
+    var(--build-blue);
+
+  color: white;
+
+  font-family: inherit;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.3s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.build-details__button:hover {
+  background:
+    var(--build-blue-dark);
+
+  transform:
+    translateY(-2px);
+
+  box-shadow:
+    0 8px 20px
+    rgba(32, 95, 127, 0.2);
+}
+
+.build-details__button svg {
+  font-size: 9px;
+
+  transition:
+    transform 0.3s ease;
+}
+
+.build-details__button:hover svg {
+  transform:
+    translateX(3px);
+}
+
+
+/* =========================================================
+   LARGE TABLET
+   ========================================================= */
+
+@media (max-width: 950px) {
+
+  .build-layout {
+    grid-template-columns:
+      minmax(240px, 0.8fr)
+      minmax(350px, 1.2fr);
+
+    gap: 25px;
   }
 
-  .cap__head h2 {
-    font-size: clamp(2.3rem, 10vw, 3.5rem);
+  .build-service {
+    padding: 12px;
   }
 
-  .cap__list {
+  .build-service__title {
+    font-size: 12px;
+  }
+
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+  .build-section {
+    padding:
+      75px
+      18px;
+  }
+
+  .build-layout {
     grid-template-columns: 1fr;
-    gap: 12px;
+
+    gap: 20px;
   }
 
-  .cap__trigger {
-    min-height: 115px;
-    padding: 1rem;
+
+  /* Horizontal services */
+
+  .build-services {
+    flex-direction: row;
+
+    overflow-x: auto;
+
+    gap: 8px;
+
+    padding:
+      4px
+      3px
+      10px;
+
+    scrollbar-width: none;
+
+    scroll-snap-type: x mandatory;
+
+    -webkit-overflow-scrolling: touch;
   }
 
-  .cap__icon {
-    width: 38px;
-    height: 38px;
-
-    border-radius: 10px;
+  .build-services::-webkit-scrollbar {
+    display: none;
   }
 
-  .cap__title {
-    padding-top: 22px;
 
-    font-size: 1.25rem;
+  .build-service {
+    flex:
+      0 0
+      190px;
+
+    width: 190px;
+
+    min-height: 60px;
+
+    scroll-snap-align: start;
   }
 
-  .cap__index {
-    top: 14px;
-    right: 14px;
+
+  .build-service:hover,
+  .build-service--active:hover {
+    transform: translateY(-2px);
   }
 
-  .cap__sign {
-    width: 28px;
-    height: 28px;
+
+  .build-details {
+    min-height: 0;
   }
 
-  .cap__panel {
-    padding: 0 1rem 1rem;
-  }
-
-  .cap__blurb {
-    font-size: 0.84rem;
-  }
-
-  .cap__items li span {
-    font-size: 0.62rem;
-  }
 }
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .build-section {
+    padding:
+      60px
+      14px
+      70px;
+  }
+
+
+  /* Header */
+
+  .build-header {
+    margin-bottom: 30px;
+  }
+
+  .build-eyebrow {
+    font-size: 8px;
+  }
+
+  .build-header h2 {
+    font-size:
+      clamp(30px, 9vw, 40px);
+  }
+
+  .build-header p {
+    font-size: 14px;
+
+    margin-top: 12px;
+  }
+
+
+  /* Services */
+
+  .build-services {
+    margin-left: -2px;
+    margin-right: -2px;
+  }
+
+  .build-service {
+    flex-basis: 170px;
+
+    width: 170px;
+
+    min-height: 58px;
+
+    padding:
+      10px
+      12px;
+  }
+
+  .build-service__icon {
+    width: 20px;
+  }
+
+  .build-service__title {
+    font-size: 11px;
+  }
+
+
+  /* Details */
+
+  .build-details {
+    padding:
+      23px
+      20px;
+
+    border-radius: 12px;
+  }
+
+  .build-details__top {
+    margin-bottom: 17px;
+  }
+
+  .build-details__icon {
+    width: 40px;
+    height: 40px;
+
+    font-size: 16px;
+  }
+
+  .build-details h3 {
+    font-size: 22px;
+  }
+
+  .build-details__description {
+    font-size: 13px;
+
+    line-height: 1.65;
+
+    margin-bottom: 22px;
+  }
+
+
+  /* Features */
+
+  .build-features {
+    grid-template-columns: 1fr;
+
+    gap: 10px;
+
+    margin-bottom: 25px;
+  }
+
+  .build-feature {
+    font-size: 12px;
+  }
+
+}
+
 
 /* =========================================================
    SMALL MOBILE
    ========================================================= */
 
-@media (max-width: 420px) {
+@media (max-width: 380px) {
 
-  .cap__trigger {
-    gap: 9px;
+  .build-section {
+    padding-left: 12px;
+    padding-right: 12px;
   }
 
-  .cap__icon {
-    width: 34px;
-    height: 34px;
+  .build-service {
+    flex-basis: 155px;
+
+    width: 155px;
   }
 
-  .cap__title {
-    font-size: 1.1rem;
+  .build-details {
+    padding:
+      20px
+      16px;
   }
 
-  .cap__sign {
-    width: 26px;
-    height: 26px;
+  .build-details h3 {
+    font-size: 20px;
+  }
+
+  .build-details__description {
+    font-size: 12px;
+  }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .build-service,
+  .build-details__button,
+  .build-service__arrow,
+  .build-details__button svg {
+    transition: none;
+  }
+
+  .build-details,
+  .build-details--fade {
+    animation: none;
+  }
+
+  .reveal,
+  .build-header,
+  .build-services.reveal {
+    transition: none;
+    opacity: 1;
+    transform: none;
   }
 }
