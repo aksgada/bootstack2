@@ -1,56 +1,52 @@
 /* ============================================================
-   BOOTSTACK — DESIGN TOKENS
-   The single source of truth for colour, type, space + motion.
+   BOOTSTACK — GLOBAL DESIGN TOKENS
+   Single typography + spacing + colour system
    ============================================================ */
 
 :root {
-  /* ---- Brand palette (fixed) ---- */
   --yellow: #f7aa00;
   --blue: #235784;
   --navy: #1a425f;
   --cyan: #40a8c4;
   --mist: #eef6f7;
 
-  /* ---- Grounds ----
-     The site runs light: white and soft cyan tints, with brand yellow kept for
-     full-bleed moments and fills. There is no dark ground. */
   --white: #ffffff;
-  --paper: #f7fbfc;        /* a half-step off white */
-  --cyan-soft: #dceef2;    /* soft cyan band */
-  --cyan-deep: #cbe6ed;    /* the same band, one step down */
-  --ink: #08161f;          /* text only — never a ground */
-  --ink-2: #0d2130;        /* case-study artwork ground */
+  --paper: #f7fbfc;
+  --cyan-soft: #dceef2;
+  --cyan-deep: #cbe6ed;
+  --ink: #08161f;
+  --ink-2: #0d2130;
 
-  /* ---- Semantic ---- */
   --bg: var(--white);
   --fg: var(--ink);
   --fg-soft: rgba(8, 22, 31, 0.66);
   --fg-faint: rgba(8, 22, 31, 0.42);
   --rule: rgba(26, 66, 95, 0.18);
-
-  /* Text accent. Yellow is unreadable as type on a light ground (≈2:1), so it
-     is reserved for fills and the brand blue carries accented words. */
   --accent: var(--blue);
 
+  /* One font family across every section */
+  --font-primary: "Montserrat", sans-serif;
+  --font-display: "Montserrat", sans-serif;
+  --font-body: "Montserrat", sans-serif;
+  --font-mono: "Montserrat", sans-serif;
 
-  /* --font-display: 'Bricolage Grotesque', 'Archivo', 'Helvetica Neue', Arial, sans-serif;
-  --font-body: 'Inter Tight', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace; */
-:root {
-  --font-display: 'Montserrat', sans-serif;
-  --font-body: 'Inter', sans-serif;
-  --font-mono: 'Inter', sans-serif;
-}
-  /* ---- Fluid type scale (min 360px → max 1600px) ---- */
-  --t-mega: clamp(3.4rem, 13.2vw, 13rem);    /* hero / closing statements */
-  --t-xxl: clamp(2.6rem, 7.6vw, 7rem);       /* section statements */
-  --t-xl: clamp(2rem, 4.6vw, 4rem);          /* sub statements */
-  --t-lg: clamp(1.5rem, 2.6vw, 2.25rem);     /* lead paragraphs */
-  --t-md: clamp(1.05rem, 1.35vw, 1.25rem);   /* body */
-  --t-sm: 0.95rem;
-  --t-xs: 0.75rem;                            /* labels, mono */
+  /* Consistent responsive type scale */
+  --t-mega: clamp(3.2rem, 12vw, 10rem);
+  --t-xxl: clamp(2.5rem, 7vw, 5.5rem);
+  --t-xl: clamp(2rem, 4.5vw, 3.75rem);
+  --t-lg: clamp(1.4rem, 2.5vw, 2rem);
+  --t-md: clamp(0.95rem, 1.2vw, 1.05rem);
+  --t-sm: 0.875rem;
+  --t-xs: 0.72rem;
 
-  /* ---- Space scale ---- */
+  --font-size-xs: 0.72rem;
+  --font-size-sm: 0.875rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-h3: clamp(1.25rem, 2vw, 1.6rem);
+  --font-size-h2: clamp(2rem, 4.5vw, 3.25rem);
+  --font-size-h1: clamp(2.8rem, 7vw, 6rem);
+
   --s-1: 0.5rem;
   --s-2: 1rem;
   --s-3: 1.5rem;
@@ -60,21 +56,28 @@
   --s-7: 9rem;
   --s-8: 13rem;
 
-  /* ---- Layout ---- */
-  --gutter: clamp(1.25rem, 4.2vw, 4.5rem);
+  --gutter: clamp(1rem, 4vw, 4.5rem);
+  --container-width: 1160px;
+  --container-padding: clamp(14px, 3vw, 24px);
   --max: 1680px;
-  /* Chapters get real air around them — the page should breathe, not compress. */
- --band-y: clamp(2rem, 5vh, 3.5rem);
-  
+  --band-y: clamp(2rem, 5vh, 3.5rem);
 
-  /* ---- Motion ---- */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  --shadow-sm: 0 2px 8px rgba(0,0,0,.05);
+  --shadow-md: 0 8px 24px rgba(25,90,110,.08);
+  --shadow-lg: 0 16px 45px rgba(25,90,110,.12);
+
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
-  --dur-fast: 0.35s;
-  --dur: 0.7s;
+  --dur-fast: .35s;
+  --dur: .7s;
   --dur-slow: 1.2s;
 
-  /* ---- Effects ---- */
   --z-nav: 80;
   --z-cursor: 200;
   --z-loader: 300;
@@ -82,6 +85,7 @@
 
 @media (max-width: 640px) {
   :root {
+    --container-padding: 14px;
     --band-y: 5rem;
   }
 }

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap, prefersReducedMotion } from '../lib/motion';
 import './Loader.css';
+import logo from '../components/2.png'
 
 /**
  * A short opening beat: three brand bars stack up while a counter runs, then the
@@ -74,9 +75,13 @@ export default function Loader({ onDone }) {
       </div>
 
       <div className="loader__inner">
-        <div className="loader__wordwrap">
-          <span className="loader__word display">BOOTSTACK</span>
-        </div>
+       <div className="loader__wordwrap">
+  <img
+    src={logo}
+    alt="Bootstack Logo"
+    className="loader__logo"
+  />
+</div>
 
         <div className="loader__bars" aria-hidden="true">
           <div className="loader__bar"><span style={{ background: 'var(--blue)' }} /></div>

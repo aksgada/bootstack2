@@ -1,0 +1,304 @@
+/* =========================================================
+   WHY CHOOSE US
+   ========================================================= */
+
+.why-choose-section {
+  --blue: var(--site-blue, #286f98);
+  --blue-dark: var(--site-blue-dark, #245a7b);
+  --cyan: var(--site-cyan, #3bb3dc);
+  --text: var(--site-text, #18242b);
+  --muted: var(--site-muted, #71838b);
+
+  position: relative;
+  width: 100%;
+  padding: clamp(60px, 8vw, 105px) 20px;
+  background: var(--site-bg, #edf7f8);
+  overflow: hidden;
+}
+
+.why-bg-shape {
+  position: absolute;
+  border: 1px solid rgba(40,126,168,.1);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: whyFloat 9s ease-in-out infinite;
+}
+
+.why-bg-shape--one {
+  width: 270px;
+  height: 270px;
+  top: -135px;
+  right: -90px;
+}
+
+.why-bg-shape--two {
+  width: 190px;
+  height: 190px;
+  bottom: -85px;
+  left: -75px;
+  animation-delay: -3s;
+}
+
+.why-choose-card {
+  position: relative;
+  z-index: 2;
+  width: min(1160px, 100%);
+  margin: 0 auto;
+  padding: clamp(35px, 5vw, 60px) clamp(18px, 4vw, 52px);
+  border: 1px solid rgba(40,126,168,.1);
+  border-radius: clamp(18px, 3vw, 26px);
+  background: rgba(255,255,255,.82);
+  box-shadow: 0 22px 60px rgba(25,90,110,.07);
+  backdrop-filter: blur(12px);
+}
+
+.why-choose-header {
+  max-width: 760px;
+  margin: 0 auto clamp(32px, 5vw, 48px);
+  text-align: center;
+}
+
+.why-choose-eyebrow {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--cyan);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: .18em;
+}
+
+.why-choose-header h2 {
+  margin: 0;
+  color: var(--blue-dark);
+  font-size: clamp(30px, 4.5vw, 46px);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -.04em;
+}
+
+.why-choose-header h2 span {
+  color: var(--cyan);
+}
+
+.why-header-line {
+  width: 42px;
+  height: 3px;
+  margin: 16px auto 0;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--blue), var(--cyan));
+  animation: whyLineIn .7s .2s both;
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0,1fr));
+  gap: 14px;
+}
+
+.benefit-item {
+  position: relative;
+  min-width: 0;
+  min-height: 285px;
+  padding: 24px 21px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(40,126,168,.11);
+  border-radius: 16px;
+  background: rgba(255,255,255,.92);
+  box-shadow: 0 8px 24px rgba(25,90,110,.045);
+  opacity: 0;
+  transform: translateY(32px) scale(.97);
+  transition:
+    opacity .7s cubic-bezier(.16,1,.3,1),
+    transform .7s cubic-bezier(.16,1,.3,1),
+    box-shadow .4s ease,
+    border-color .3s ease;
+  transition-delay: calc(var(--reveal-index) * .1s);
+  overflow: hidden;
+}
+
+.benefits-grid.in-view .benefit-item {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.benefit-item::before {
+  content: "";
+  position: absolute;
+  width: 130px;
+  height: 130px;
+  top: -70px;
+  right: -55px;
+  border-radius: 50%;
+  background: rgba(59,179,220,.08);
+  transition: transform .5s ease;
+}
+
+.benefit-item:hover {
+  transform: translateY(-8px) scale(1.012);
+  border-color: rgba(40,126,168,.22);
+  box-shadow: 0 20px 38px rgba(25,90,110,.1);
+}
+
+.benefit-item:hover::before {
+  transform: scale(2);
+}
+
+.benefit-number {
+  position: absolute;
+  top: 17px;
+  right: 18px;
+  color: rgba(40,126,168,.2);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .08em;
+}
+
+.benefit-icon {
+  width: 52px;
+  height: 52px;
+  margin-bottom: 24px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(40,126,168,.13);
+  border-radius: 14px;
+  background: #edf8fa;
+  color: var(--blue);
+  transition: transform .4s cubic-bezier(.16,1,.3,1), background .3s ease, color .3s ease;
+}
+
+.benefit-icon svg {
+  width: 23px;
+  height: 23px;
+  stroke-width: 1.7;
+}
+
+.benefit-item:hover .benefit-icon {
+  transform: translateY(-4px) rotate(-5deg) scale(1.08);
+  background: var(--blue);
+  color: #fff;
+}
+
+.benefit-item h3 {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 10px;
+  color: var(--blue-dark);
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.benefit-item p {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.benefit-arrow {
+  position: relative;
+  z-index: 1;
+  width: 34px;
+  height: 34px;
+  margin-top: auto;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(40,126,168,.13);
+  border-radius: 50%;
+  color: var(--blue);
+  font-size: 16px;
+  transition: transform .35s ease, background .3s ease, color .3s ease;
+}
+
+.benefit-item:hover .benefit-arrow {
+  transform: translate(4px,-3px);
+  background: var(--blue);
+  color: #fff;
+}
+
+.benefit-border {
+  position: absolute;
+  left: 15px;
+  right: 15px;
+  bottom: 0;
+  height: 2px;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--blue), var(--cyan));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .45s cubic-bezier(.16,1,.3,1);
+}
+
+.benefit-item:hover .benefit-border {
+  transform: scaleX(1);
+}
+
+@keyframes whyFloat {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-22px); }
+}
+
+@keyframes whyLineIn {
+  from { opacity: 0; transform: scaleX(0); }
+  to { opacity: 1; transform: scaleX(1); }
+}
+
+@media (max-width: 1050px) {
+  .benefits-grid {
+    grid-template-columns: repeat(2, minmax(0,1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .why-choose-section {
+    padding: 55px 14px 65px;
+  }
+
+  .why-choose-card {
+    padding: 38px 14px;
+  }
+
+  .benefits-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .benefit-item {
+    min-height: 0;
+    padding: 22px 19px;
+  }
+
+  .benefit-icon {
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 380px) {
+  .why-choose-section {
+    padding-inline: 10px;
+  }
+
+  .why-choose-card {
+    padding-inline: 11px;
+  }
+
+  .benefit-item h3 {
+    font-size: 16px;
+  }
+
+  .benefit-item p {
+    font-size: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .benefit-item {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

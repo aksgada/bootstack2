@@ -1,28 +1,60 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from "react";
 
 /**
- * One observer for the whole page. Any element carrying `data-reveal` gets an
- * `is-in` class the first time it enters the viewport; the CSS in base.css
- * decides what that means (fade-up, clip mask, or line-by-line type).
+ * useReveal
+ * ---------------------------------------------------------
+ * Attaches an IntersectionObserver to the returned ref and
+ * adds an "in-view" class the first time the element enters
+ * the viewport. Pair with the ".reveal" CSS helper classes
+ * (see style/Style.css or the per-component stylesheets).
+ *
+ * Automatically skips animation for users who have
+ * "prefers-reduced-motion: reduce" set — the element is
+ * simply marked as visible immediately.
+ *
+ * @param {Object} [options]
+ * @param {number} [options.threshold=0.15] - visibility ratio to trigger reveal
+ * @param {string} [options.rootMargin="0px 0px -10% 0px"] - IO root margin
+ * @param {boolean} [options.once=true] - only reveal once, or toggle every time
  */
-export function useReveal(deps = []) {
+export default function useReveal({
+  threshold = 0.15,
+  rootMargin = "0px 0px -10% 0px",
+  once = true,
+} = {}) {
+  const ref = useRef(null);
+
   useEffect(() => {
-    const nodes = document.querySelectorAll('[data-reveal]:not(.is-in)');
-    if (!nodes.length) return undefined;
+    const node = ref.current;
+    if (!node) return undefined;
+
+    const prefersReducedMotion =
+      typeof window !== "undefined" &&
+      window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (prefersReducedMotion) {
+      node.classList.add("in-view");
+      return undefined;
+    }
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          entry.target.classList.add('is-in');
-          observer.unobserve(entry.target);
+          if (entry.isIntersecting) {
+            node.classList.add("in-view");
+            if (once) observer.unobserve(node);
+          } else if (!once) {
+            node.classList.remove("in-view");
+          }
         });
       },
-      { rootMargin: '0px 0px -12% 0px', threshold: 0.08 },
+      { threshold, rootMargin }
     );
 
-    nodes.forEach((node) => observer.observe(node));
+    observer.observe(node);
     return () => observer.disconnect();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, deps);
+  }, [threshold, rootMargin, once]);
+
+  return ref;
 }

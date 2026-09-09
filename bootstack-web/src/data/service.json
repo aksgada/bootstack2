@@ -1,0 +1,50 @@
+[
+  {
+    "id": "website-development",
+    "title": "Website Development",
+    "category": "DIGITAL DEVELOPMENT",
+    "description": "Build fast, responsive, SEO-friendly websites that create great first impressions and convert visitors into customers."
+  },
+  {
+    "id": "branding-ui-ux",
+    "title": "Branding & UI/UX",
+    "category": "BRANDING & DESIGN",
+    "description": "Create memorable brand identities and intuitive user experiences that connect with your audience."
+  },
+  {
+    "id": "social-media-management",
+    "title": "Social Media Management",
+    "category": "SOCIAL MEDIA",
+    "description": "Build a strong online presence with engaging content, consistent branding, and strategic social media management."
+  },
+  {
+    "id": "performance-marketing",
+    "title": "Performance Marketing",
+    "category": "DIGITAL MARKETING",
+    "description": "Generate quality leads and grow your business with data-driven advertising on Google, Meta, and other digital platforms."
+  },
+  {
+    "id": "crm-business-automation",
+    "title": "CRM & Business Automation",
+    "category": "BUSINESS AUTOMATION",
+    "description": "Streamline your business operations with CRM systems, automation workflows, and smart business processes."
+  },
+  {
+    "id": "software-development",
+    "title": "Software Development",
+    "category": "SOFTWARE",
+    "description": "Develop custom software solutions that simplify operations, improve efficiency, and support your business goals."
+  },
+  {
+    "id": "app-development",
+    "title": "App Development",
+    "category": "MOBILE DEVELOPMENT",
+    "description": "Create secure, high-performance mobile applications that deliver seamless experiences on Android and iOS."
+  },
+  {
+    "id": "marketing-automation",
+    "title": "Marketing Automation",
+    "category": "MARKETING TECHNOLOGY",
+    "description": "Automate repetitive marketing tasks, nurture leads, and improve customer engagement with smart workflows."
+  }
+]

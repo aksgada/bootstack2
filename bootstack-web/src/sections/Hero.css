@@ -1,181 +1,428 @@
+
+
+.app {
+    width: 100%;
+    min-height: 100vh;
+
+    overflow-x: hidden;
+}
+
+/* =========================================================
+   HERO SECTION
+   ========================================================= */
+
 .hero {
-  position: relative;
-  overflow: hidden;
-  color: var(--ink);
+    position: relative;
+
+    width: 100%;
+    min-height: 100vh;
+
+    min-height: 100svh;
+
+    display: flex;
+
+    align-items: center;
+
+    overflow: hidden;
+
+    /*
+       Add your image here when available:
+
+       background-image:
+           url("/hero-bg.jpg");
+    */
+
+    background-color: #061117;
+
+    background-size: cover;
+
+    background-position: center center;
+
+    background-repeat: no-repeat;
 }
 
-.hero__inner {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: clamp(2rem, 5vh, 3.5rem);
-  min-height: 100svh;
-  padding-block: clamp(6rem, 14vh, 9rem) clamp(1.75rem, 5vh, 3rem);
+
+/* =========================================================
+   HERO OVERLAY
+   ========================================================= */
+
+.hero-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 1;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(2, 14, 20, 0.98) 0%,
+            rgba(2, 14, 20, 0.94) 25%,
+            rgba(2, 14, 20, 0.82) 48%,
+            rgba(2, 14, 20, 0.58) 72%,
+            rgba(2, 14, 20, 0.42) 100%
+        );
 }
 
-/* ---- Eyebrow ---- */
 
-.hero__eyebrow {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem 2rem;
-  color: var(--fg-soft);
-  overflow: hidden;
+/* =========================================================
+   HERO CONTENT
+   ========================================================= */
+
+.hero-content {
+    position: relative;
+
+    z-index: 2;
+
+    width: min(
+        900px,
+        calc(100% - 40px)
+    );
+
+    margin-left:
+        clamp(25px, 9vw, 140px);
+
+    padding-top: 55px;
+
+    padding-bottom: 50px;
 }
 
-.hero__eyebrow > * { display: block; }
 
-.hero__eyebrow > *:first-child {
-  color: var(--blue);
+/* =========================================================
+   HERO ENTRANCE ANIMATION
+   Subtle staggered fade + rise on first paint
+   ========================================================= */
+
+@keyframes hero-fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.hero__eyebrow-loc { margin-left: auto; }
-
-/* ---- Headline ---- */
-
-.hero__type {
-  text-transform: uppercase;
-  margin-block: auto;
+.hero-eyebrow,
+.hero-content h1,
+.hero-description,
+.hero-buttons,
+.features {
+    animation: hero-fade-up 0.7s cubic-bezier(0.16, 0.84, 0.44, 1) both;
 }
 
-.hero__line {
-  display: block;
-  overflow: hidden;
-  font-size: 5.9rem;
-  letter-spacing: 2px;
+.hero-eyebrow { animation-delay: 0.05s; }
+.hero-content h1 { animation-delay: 0.15s; }
+.hero-description { animation-delay: 0.3s; }
+.hero-buttons { animation-delay: 0.42s; }
+.features { animation-delay: 0.54s; }
+
+@keyframes hero-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
-.hero__line > span { display: block; }
-
-.hero__line--2 { padding-left: 6%; }
-
-.hero__line--3 {
-  padding-left: 14%;
-  color: var(--yellow);
+.hero-overlay {
+    animation: hero-fade-in 1s ease both;
 }
 
-/* ---- Supporting column ---- */
 
-.hero__aside {
-  display: grid;
-  gap: clamp(1.5rem, 3vw, 2.5rem);
-  align-items: end;
+/* =========================================================
+   HERO EYEBROW
+   ========================================================= */
+
+.hero-eyebrow {
+    display: block;
+
+    margin-bottom: 16px;
+
+    color: #55b8d5;
+
+    font-family: var(
+        --font-primary,
+        "Montserrat",
+        sans-serif
+    );
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    line-height: 1.2;
+
+    letter-spacing: 0.2em;
+
+    text-transform: uppercase;
 }
 
-.hero__support {
-  display: flex;
-  align-items: flex-start;
-  gap: 1.25rem;
-  max-width: 46ch;
+
+/* =========================================================
+   HERO HEADING
+   ========================================================= */
+
+.hero-content h1 {
+    max-width: 850px;
+
+    margin: 0 0 22px;
+
+    color: #f8f8f8;
+
+    font-family: var(
+        --font-primary,
+        "Montserrat",
+        sans-serif
+    );
+
+    /*
+       Uses same responsive scale
+       as global H1.
+
+       38px → 56px
+    */
+
+    font-size:
+        clamp(
+            38px,
+            5.2vw,
+            56px
+        );
+
+    font-weight: 700;
+
+    line-height: 1.08;
+
+    letter-spacing: -0.035em;
 }
 
-.hero__rule {
-  flex: none;
-  width: clamp(28px, 4vw, 64px);
-  height: 2px;
-  margin-top: 0.85em;
-  background: var(--yellow);
+.hero-content h1 span {
+    color: #ffffff;
 }
 
-.hero__support .lead {
-  color: var(--ink);
-  font-size: clamp(1.1rem, 1.5vw, 1.4rem);
-  line-height: 1.4;
+
+/* =========================================================
+   HERO DESCRIPTION
+   ========================================================= */
+
+.hero-description {
+    width: 100%;
+    max-width: 690px;
+
+    margin: 0;
+
+    color: #d7e2e5;
+
+    font-family: var(
+        --font-primary,
+        "Montserrat",
+        sans-serif
+    );
+
+    font-size:
+        clamp(15px, 1.5vw, 16px);
+
+    font-weight: 400;
+
+    line-height: 1.7;
 }
 
-.hero__ctas {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.85rem;
+
+/* =========================================================
+   HERO BUTTONS
+   ========================================================= */
+
+.hero-buttons {
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 12px;
+
+    margin-top: 28px;
 }
 
-/* ---- Foot ---- */
 
-.hero__foot {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: var(--s-3);
-  padding-top: var(--s-3);
-  border-top: 1px solid var(--rule);
+/* =========================================================
+   BASE BUTTON
+   ========================================================= */
+
+.hero .button {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-height: 48px;
+
+    padding:
+        0.75rem
+        1.4rem;
+
+    border-radius: var(
+        --radius-full,
+        999px
+    );
+
+    font-family: var(
+        --font-primary,
+        "Montserrat",
+        sans-serif
+    );
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    line-height: 1.2;
+
+    white-space: nowrap;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease,
+        border-color 0.25s ease;
 }
 
-.hero__cue {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.85rem;
-  color: var(--fg-soft);
-  transition: color 0.3s var(--ease-out);
+.hero .button:hover {
+    transform: translateY(-2px);
 }
 
-.hero__cue:hover { color: var(--blue); }
 
-.hero__cue-line {
-  position: relative;
-  display: block;
-  width: 64px;
-  height: 1px;
-  background: color-mix(in srgb, currentColor 35%, transparent);
-  overflow: hidden;
+/* =========================================================
+   PRIMARY BUTTON
+   ========================================================= */
+
+.primary-button {
+    color: #ffffff;
+
+    background:
+        linear-gradient(
+            135deg,
+            #287fb5,
+            #246a9e
+        );
+
+    border:
+        1px solid
+        rgba(82, 177, 215, 0.3);
+
+    box-shadow:
+        0 8px 25px
+        rgba(20, 95, 145, 0.25);
 }
 
-.hero__cue-line::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--blue);
-  transform-origin: left center;
-  animation: cue-sweep 2.4s var(--ease-in-out) infinite;
+.primary-button:hover {
+    color: #ffffff;
+
+    background:
+        linear-gradient(
+            135deg,
+            #3193c5,
+            #2877aa
+        );
+
+    box-shadow:
+        0 12px 30px
+        rgba(20, 95, 145, 0.35);
 }
 
-@keyframes cue-sweep {
-  0%   { transform: scaleX(0); transform-origin: left center; }
-  45%  { transform: scaleX(1); transform-origin: left center; }
-  55%  { transform: scaleX(1); transform-origin: right center; }
-  100% { transform: scaleX(0); transform-origin: right center; }
+
+/* =========================================================
+   SECONDARY BUTTON
+   ========================================================= */
+
+.secondary-button {
+    min-width: 145px;
+
+    color: #35536a;
+
+    background: #f8f8f8;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.3);
 }
 
-.hero__ledger {
-  display: none;
-  gap: 0.35rem;
-  text-align: right;
-  color: var(--fg-faint);
+.secondary-button:hover {
+    color: #286b9f;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 8px 20px
+        rgba(0, 0, 0, 0.12);
 }
 
-@media (min-width: 900px) {
-  .hero__aside {
-    grid-template-columns: minmax(0, 1fr) auto;
-    justify-items: start;
-  }
 
-  .hero__ctas { justify-self: end; }
+/* =========================================================
+   FEATURES
+   ========================================================= */
 
-  .hero__ledger { display: grid; }
+.features {
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap:
+        12px
+        clamp(20px, 3vw, 45px);
+
+    margin-top: 24px;
 }
 
-@media (max-width: 899px) {
-  .hero__eyebrow-loc { display: none; }
-  .hero__line--2 { padding-left: 4%; }
-  .hero__line--3 { padding-left: 9%; }
-}
-@media (max-width: 768px) {
-  .hero__line {
-    font-size: clamp(2.2rem, 12.5vw, 3.8rem);
-    line-height: 0.98;
-    letter-spacing: -0.04em;
-  }
 
-  .hero__line--2 {
-    padding-left: 2%;
-  }
+/* =========================================================
+   FEATURE
+   ========================================================= */
 
-  .hero__line--3 {
-    padding-left: 5%;
-  }
+.feature {
+    display: inline-flex;
+
+    align-items: center;
+
+    color: #edf2f2;
+
+    font-family: var(
+        --font-primary,
+        "Montserrat",
+        sans-serif
+    );
+
+    font-size: 14px;
+
+    font-weight: 500;
+
+    line-height: 1.4;
+
+    white-space: nowrap;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .hero__cue-line::after { animation: none; transform: scaleX(1); }
+
+/* CHECK ICON */
+
+.feature > span:first-child {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 20px;
+    height: 20px;
+
+    margin-right: 7px;
+
+    color: #efc000;
+
+    font-size: 14px;
+
+    font-weight: 800;
+
+    line-height: 1;
 }
+
+
