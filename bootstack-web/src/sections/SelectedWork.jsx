@@ -70,7 +70,7 @@ function ProjectArtwork({ type }) {
 
 export default function ProjectSection() {
   return (
-    <section className="projects-section">
+    <section className="projects-section" id="work">
       <div className="projects-heading">
         <h2>
           SELECTED

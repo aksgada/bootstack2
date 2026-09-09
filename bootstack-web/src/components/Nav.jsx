@@ -1,5 +1,6 @@
 
 import { useEffect, useRef, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { gsap, ScrollTrigger } from '../lib/motion';
 import { nav as navLinks, brand, contact, socials } from '../data/site';
 import Wordmark from './Wordmark.jsx';
@@ -288,18 +289,23 @@ export default function Nav({ ready }) {
       );
 
     } finally {
-
       setIsSubmitting(false);
-
     }
   };
+
+  const location = useLocation();
+  const navigate = useNavigate();
 
   /* -------------------------------------------------------
      NAV LINK CLICK
   ------------------------------------------------------- */
 
-  const handleNavLinkClick = () => {
+  const handleNavLinkClick = (e, href) => {
     setOpen(false);
+    if (location.pathname !== '/' && href) {
+      e?.preventDefault();
+      navigate('/' + (href.startsWith('#') ? href : '#' + href));
+    }
   };
 
   /* -------------------------------------------------------
@@ -325,17 +331,17 @@ export default function Nav({ ready }) {
           ------------------------------------------------- */}
 
           <a
-  className="nav__brand"
-  href="#top"
-  aria-label={`${brand.name} — home`}
-  onClick={handleNavLinkClick}
->
-  <img
-    src={logo}
-    alt={brand.name}
-    className="nav__logo"
-  />
-</a>
+            className="nav__brand"
+            href="#top"
+            aria-label={`${brand.name} — home`}
+            onClick={(e) => handleNavLinkClick(e, '#top')}
+          >
+            <img
+              src={logo}
+              alt={brand.name}
+              className="nav__logo"
+            />
+          </a>
 
           {/* -------------------------------------------------
               DESKTOP NAVIGATION
@@ -351,7 +357,7 @@ export default function Nav({ ready }) {
                 key={link.href}
                 className="nav__link mono"
                 href={link.href}
-                onClick={handleNavLinkClick}
+                onClick={(e) => handleNavLinkClick(e, link.href)}
               >
 
                 <span>
@@ -450,7 +456,7 @@ export default function Nav({ ready }) {
               <a
                 key={link.href}
                 href={link.href}
-                onClick={handleNavLinkClick}
+                onClick={(e) => handleNavLinkClick(e, link.href)}
                 style={{
                   '--i': i,
                 }}

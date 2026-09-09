@@ -101,6 +101,8 @@ function Home() {
 
         <Hero ready={ready} />
 
+        <About />
+
         <BigIdea />
 
         {/* <Capabilities />

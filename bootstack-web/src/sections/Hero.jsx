@@ -46,7 +46,7 @@ function Hero() {
           <div className="hero-buttons">
 
             <a
-              href="#cta"
+              href="#contact"
               className="button primary-button"
             >
               Book Consultation Call

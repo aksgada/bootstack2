@@ -13,7 +13,7 @@ export const brand = {
 export const nav = [
   { label: 'Home', href: '#top' },
   { label: 'About', href: '#about' },
-  { label: 'Services', href: '#capabilities' },
+  { label: 'Services', href: '#services' },
   { label: 'Work', href: '#work' },
   { label: 'Contact', href: '#contact' },
 ];

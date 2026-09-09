@@ -495,7 +495,7 @@ export default function CallToAction() {
   const contentRef = useReveal();
 
   return (
-    <section className="cta" id="cta" aria-labelledby="cta-title">
+    <section className="cta" id="contact" aria-labelledby="cta-title">
       <div className="cta-glow cta-glow--one" aria-hidden="true" />
       <div className="cta-glow cta-glow--two" aria-hidden="true" />
 

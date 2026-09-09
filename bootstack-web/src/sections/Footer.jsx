@@ -50,7 +50,7 @@ export default function Footer() {
             <ul>
               {footerServices.map((service) => (
                 <li key={service}>
-                  <a href="#capabilities">
+                  <a href="#services">
                     {service}
                   </a>
                 </li>
